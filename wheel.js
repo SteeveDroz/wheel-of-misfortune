@@ -19,4 +19,19 @@ $(function() {
     wheel.lineTo(SIZE - 10, SIZE / 2 + 10)
     wheel.fillStyle = '#f00'
     wheel.fill()
+
+    $.post('php/save.php', {
+        file: {
+            group: 'test-1',
+            people: [{
+                name: 'user 1',
+                points: 3
+            }, {
+                name: 'user 2',
+                points: 1
+            }]
+        }
+    }, function(data) {
+        alert(data)
+    })
 })
