@@ -19,6 +19,8 @@ $(function() {
     wheel.lineTo(SIZE - 10, SIZE / 2 + 10)
     wheel.fillStyle = '#f00'
     wheel.fill()
+
+    populateGroups()
 })
 
 const save = function() {
@@ -35,5 +37,18 @@ const save = function() {
         }
     }, function(data) {
         alert(data)
+    })
+}
+
+const populateGroups = function() {
+    $.getJSON('php/populateGroups.php', function(data) {
+        console.log(data)
+        const groups = $('#groups')
+        $.each(data, function(id) {
+            groups.append($('<option>', {
+                val: data[id],
+                text: data[id].substr(0, data[id].length - 5)
+            }))
+        })
     })
 }
