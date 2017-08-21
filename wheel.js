@@ -19,7 +19,9 @@ $(function() {
     wheel.lineTo(SIZE - 10, SIZE / 2 + 10)
     wheel.fillStyle = '#f00'
     wheel.fill()
+})
 
+const save = function() {
     $.post('php/save.php', {
         file: {
             group: 'test-1',
@@ -34,4 +36,4 @@ $(function() {
     }, function(data) {
         alert(data)
     })
-})
+}
