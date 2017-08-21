@@ -1,6 +1,7 @@
 const SIZE = 800
 let canvas
 let wheel
+let group
 
 $(function() {
     canvas = $('#wheel')
@@ -21,6 +22,13 @@ $(function() {
     wheel.fill()
 
     populateGroups()
+    $('#groups').change(function() {
+        group = $.getJSON('php/getGroup.php', {
+            name: $(this).val()
+        }, function(data) {
+            console.log(data);
+        })
+    })
 })
 
 const save = function() {
@@ -42,7 +50,6 @@ const save = function() {
 
 const populateGroups = function() {
     $.getJSON('php/populateGroups.php', function(data) {
-        console.log(data)
         const groups = $('#groups')
         $.each(data, function(id) {
             groups.append($('<option>', {
