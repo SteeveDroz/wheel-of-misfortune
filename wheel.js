@@ -5,6 +5,7 @@ let group
 let parts
 let angle = 0
 let colors
+let proportional
 
 $(function() {
     SIZE = $('body').width()
@@ -23,6 +24,11 @@ $(function() {
 
     $('#groups').change(function() {
         reloadGroup(setColors)
+    })
+
+    $('#proportional').change(function() {
+        group.proportional = $(this).is(':checked')
+        updateGroup(reloadGroup)
     })
 
     $('#run').click(function() {
@@ -52,6 +58,8 @@ const reloadGroup = function(callback) {
         if (callback !== undefined) {
             callback()
         }
+        proportional = group.proportional == 'true'
+        $('#proportional').prop('checked', proportional)
         parts = calculateParts()
         drawGroup()
     })
@@ -132,10 +140,11 @@ const drawNeedle = function() {
 
 const calculateParts = function() {
     const min = getMin()
-    const total = getTotal(min)
+    const total = proportional ? getTotalProportional(min) : getTotalSimple(min)
     const parts = {}
     group.choices.forEach(function(choice) {
-        parts[choice.name] = getProportion(choice.points, min) / total * 2 * Math.PI
+        const part = proportional ? getProportion(choice.points, min) : (choice.points == min ? 1 : 0)
+        parts[choice.name] = part / total * 2 * Math.PI
     })
     return parts
 }
@@ -148,7 +157,15 @@ const getMin = function() {
     return min
 }
 
-const getTotal = function(min) {
+const getTotalSimple = function(min) {
+    let total = 0
+    group.choices.forEach(function(choice) {
+        total += choice.points == min ? 1 : 0
+    })
+    return total
+}
+
+const getTotalProportional = function(min) {
     let total = 0
     group.choices.forEach(function(choice) {
         total += getProportion(choice.points, min)
@@ -268,6 +285,7 @@ const addGroup = function() {
 
     const newGroup = {}
     newGroup.group = newName
+    newGroup.proportional = false
     newGroup.choices = []
     newChoices.forEach(function(choice) {
         newGroup.choices.push({
