@@ -101,6 +101,14 @@ const drawGroup = function() {
         wheel.fill()
         wheel.stroke()
         color = (color + 1) % colors.length
+
+        wheel.translate(SIZE / 2, SIZE / 2)
+        wheel.rotate(start)
+        wheel.fillStyle = '#000'
+        wheel.font = '16pt sans-serif'
+        wheel.fillText(name, 50, 16)
+        wheel.rotate(-start)
+        wheel.translate(-SIZE / 2, -SIZE / 2)
     })
     drawNeedle()
 }
