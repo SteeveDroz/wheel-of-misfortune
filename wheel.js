@@ -16,6 +16,13 @@ $(function() {
     wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 50, 0, 2 * Math.PI, false)
     wheel.fill()
 
+    $('#popup').hide()
+    $('#ok').click(function() {
+        updateGroup()
+        closePopup()
+    })
+    $('#cancel').click(closePopup)
+
     populateGroups()
     $('#groups').change(function() {
         reloadGroup(setColors)
@@ -74,6 +81,7 @@ const populateGroups = function() {
                 text: data[id].substr(0, data[id].length - 5)
             }))
         })
+        reloadGroup(setColors)
     })
 }
 
@@ -142,6 +150,7 @@ const run = function(finished) {
         return
     }
     $('#run').prop('disabled', true)
+    $('#groups').prop('disabled', true)
     let speed = 0.1 * Math.random() + 0.2
     const slowDown = 0.001
     const timer = setInterval(function() {
@@ -151,6 +160,7 @@ const run = function(finished) {
         if (speed <= 0) {
             clearTimeout(timer)
             $('#run').prop('disabled', false)
+            $('#groups').prop('disabled', false)
             finished()
         }
     }, 1000 / 60)
@@ -175,15 +185,23 @@ const selectChoice = function() {
                 choice.points++
             }
         })
-        updateGroup()
+        openPopup(selected)
     }
+}
+
+const openPopup = function(name) {
+    $('#name').text(name)
+    $('#popup').fadeIn()
+}
+
+const closePopup = function() {
+    $('#popup').fadeOut()
 }
 
 const updateGroup = function() {
     $.post('php/save.php', {
         file: group
     }, function(data) {
-        console.log(data);
         reloadGroup()
     })
 }
