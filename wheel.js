@@ -214,16 +214,16 @@ const selectChoice = function() {
             selected = part
         }
     })
-    if (selected !== undefined) {
-        group.choices.forEach(function(choice) {
-            if (choice.name == selected) {
-                choice.points++
-            }
-        })
-        openPopup(selected, function() {
+    openPopup(selected, function() {
+        if (selected !== undefined) {
+            group.choices.forEach(function(choice) {
+                if (choice.name == selected) {
+                    choice.points++
+                }
+            })
             updateGroup(reloadGroup)
-        })
-    }
+        }
+    })
 }
 
 const openPopup = function(content, callback) {
