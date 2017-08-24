@@ -238,8 +238,9 @@ const openPopup = function(content, callback) {
 }
 
 const closePopup = function() {
-    $('#popup').fadeOut()
-    $('#popup-text').text('')
+    $('#popup').fadeOut(400, function() {
+        $('#popup-text').text('')
+    })
 }
 
 const updateGroup = function(callback) {
