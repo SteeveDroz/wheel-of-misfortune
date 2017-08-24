@@ -104,6 +104,9 @@ const drawGroup = function() {
     let end = 0
     let color = 0
     Object.keys(parts).forEach(function(name) {
+        if (parts[name] == 0) {
+            return
+        }
         start = end
         end = start + parts[name]
         wheel.beginPath()
