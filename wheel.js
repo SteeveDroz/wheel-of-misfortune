@@ -20,6 +20,7 @@ $(function() {
     $('#popup').hide()
 
     populateGroups()
+
     $('#groups').change(function() {
         reloadGroup(setColors)
     })
@@ -29,6 +30,9 @@ $(function() {
     })
 
     $('#reset').click(reset)
+    $('#add-group').click(function() {
+        openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>', addGroup)
+    })
 })
 
 const setColors = function() {
@@ -70,9 +74,10 @@ const save = function() {
     })
 }
 
-const populateGroups = function() {
+const populateGroups = function(callback) {
     $.getJSON('php/populateGroups.php', function(data) {
         const groups = $('#groups')
+        groups.html('')
         $.each(data, function(id) {
             groups.append($('<option>', {
                 val: data[id],
@@ -80,6 +85,9 @@ const populateGroups = function() {
             }))
         })
         reloadGroup(setColors)
+        if (callback !== undefined) {
+            callback(data)
+        }
     })
 }
 
@@ -192,29 +200,34 @@ const selectChoice = function() {
                 choice.points++
             }
         })
-        openPopup(selected, updateGroup)
+        openPopup(selected, function() {
+            updateGroup(reloadGroup)
+        })
     }
 }
 
-const openPopup = function(text, callback) {
-    $('#popup-text').text(text)
+const openPopup = function(content, callback) {
+    $('#popup-text').html(content)
     $('#popup').fadeIn()
+    $('#ok').unbind('click')
     $('#ok').click(function() {
         callback()
         closePopup()
     })
+    $('#cancel').unbind('click')
     $('#cancel').click(closePopup)
 }
 
 const closePopup = function() {
     $('#popup').fadeOut()
+    $('#popup-text').text('')
 }
 
-const updateGroup = function() {
+const updateGroup = function(callback) {
     $.post('php/save.php', {
         file: group
     }, function(data) {
-        reloadGroup()
+        callback()
     })
 }
 
@@ -226,7 +239,49 @@ const confirmReset = function() {
     group.choices.forEach(function(choice) {
         choice.points = 0
     })
-    updateGroup()
+    updateGroup(reloadGroup)
+}
+
+const addGroup = function() {
+    let newName = $('#new-group-name').val()
+    const newChoices = $('#new-group-choices')
+        .val()
+        .split(/[\r\n]+/)
+        .map(function(element) {
+            return element.trim()
+        })
+        .filter(function(element) {
+            return element
+        })
+
+    if (!newName) {
+        console.log('Name required')
+        return
+    }
+    while ($('#groups').find(':contains(' + newName + ')').length > 0) {
+        newName += '_'
+    }
+    if (newChoices.length == 0) {
+        console.log('Non-empty lines required')
+        return
+    }
+
+    const newGroup = {}
+    newGroup.group = newName
+    newGroup.choices = []
+    newChoices.forEach(function(choice) {
+        newGroup.choices.push({
+            name: choice,
+            points: 0
+        })
+    })
+    group = newGroup
+    updateGroup(function() {
+        populateGroups(function() {
+            $('#groups').val(newName + '.json')
+            reloadGroup(setColors)
+        })
+    })
 }
 
 const getRandomBrightColor = function() {
