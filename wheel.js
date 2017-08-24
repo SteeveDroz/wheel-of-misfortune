@@ -8,7 +8,6 @@ let colors
 
 $(function() {
     SIZE = $('body').width()
-    console.log(SIZE);
     canvas = $('#wheel')
     canvas[0].width = SIZE
     canvas[0].height = SIZE
@@ -33,6 +32,8 @@ $(function() {
     $('#run').click(function() {
         run(selectChoice)
     })
+
+    $('#reset').click(reset)
 })
 
 const setColors = function() {
@@ -215,6 +216,14 @@ const updateGroup = function() {
     }, function(data) {
         reloadGroup()
     })
+}
+
+const reset = function() {
+    console.log(group);
+    group.choices.forEach(function(choice) {
+        choice.points = 0
+    })
+    updateGroup()
 }
 
 const getRandomBrightColor = function() {
