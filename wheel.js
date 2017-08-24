@@ -18,11 +18,6 @@ $(function() {
     wheel.fill()
 
     $('#popup').hide()
-    $('#ok').click(function() {
-        updateGroup()
-        closePopup()
-    })
-    $('#cancel').click(closePopup)
 
     populateGroups()
     $('#groups').change(function() {
@@ -197,13 +192,18 @@ const selectChoice = function() {
                 choice.points++
             }
         })
-        openPopup(selected)
+        openPopup(selected, updateGroup)
     }
 }
 
-const openPopup = function(name) {
-    $('#name').text(name)
+const openPopup = function(text, callback) {
+    $('#popup-text').text(text)
     $('#popup').fadeIn()
+    $('#ok').click(function() {
+        callback()
+        closePopup()
+    })
+    $('#cancel').click(closePopup)
 }
 
 const closePopup = function() {
@@ -219,7 +219,10 @@ const updateGroup = function() {
 }
 
 const reset = function() {
-    console.log(group);
+    openPopup('Are you sure you want to reset?', confirmReset)
+}
+
+const confirmReset = function() {
     group.choices.forEach(function(choice) {
         choice.points = 0
     })
