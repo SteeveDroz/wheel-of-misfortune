@@ -1,4 +1,4 @@
-const SIZE = 500
+const SIZE = 800
 let canvas
 let wheel
 let group
@@ -102,12 +102,13 @@ const drawGroup = function() {
         wheel.stroke()
         color = (color + 1) % colors.length
 
+        const text = name + ' (' + (Math.round(10000 * parts[name] / (2 * Math.PI)) / 100) + '%)'
         wheel.translate(SIZE / 2, SIZE / 2)
-        wheel.rotate(start)
+        wheel.rotate(start + angle)
         wheel.fillStyle = '#000'
-        wheel.font = '16pt sans-serif'
-        wheel.fillText(name, 50, 16)
-        wheel.rotate(-start)
+        wheel.font = '20pt sans-serif'
+        wheel.fillText(text, SIZE / 2 - 65 - wheel.measureText(text).width, 25)
+        wheel.rotate(-start - angle)
         wheel.translate(-SIZE / 2, -SIZE / 2)
     })
     drawNeedle()
@@ -159,7 +160,7 @@ const run = function(finished) {
     }
     $('#run').prop('disabled', true)
     $('#groups').prop('disabled', true)
-    let speed = 0.1 * Math.random() + 0.2
+    let speed = 0.3 * Math.random() + 0.2
     const slowDown = 0.001
     const timer = setInterval(function() {
         angle += speed
