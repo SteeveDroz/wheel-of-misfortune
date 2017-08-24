@@ -1,9 +1,10 @@
-const SIZE = 300
+const SIZE = 500
 let canvas
 let wheel
 let group
 let parts
 let angle = 0
+let colors
 
 $(function() {
     canvas = $('#wheel')
@@ -17,17 +18,35 @@ $(function() {
 
     populateGroups()
     $('#groups').change(function() {
-        $.getJSON('php/getGroup.php', {
-            name: $(this).val()
-        }, function(data) {
-            group = JSON.parse(data)
-            parts = calculateParts()
-            drawGroup()
-        })
+        reloadGroup(setColors)
     })
 
-    $('#run').click(run)
+    $('#run').click(function() {
+        run(selectChoice)
+    })
 })
+
+const setColors = function() {
+    if (group.choices !== undefined) {
+        colors = []
+        group.choices.forEach(function(choice) {
+            colors.push(getRandomBrightColor())
+        })
+    }
+}
+
+const reloadGroup = function(callback) {
+    $.getJSON('php/getGroup.php', {
+        name: $('#groups').val()
+    }, function(data) {
+        group = JSON.parse(data)
+        if (callback !== undefined) {
+            callback()
+        }
+        parts = calculateParts()
+        drawGroup()
+    })
+}
 
 const save = function() {
     $.post('php/save.php', {
@@ -61,7 +80,6 @@ const populateGroups = function() {
 const drawGroup = function() {
     let start = 0
     let end = 0
-    const colors = ['#ff0', '#f00', '#fff']
     let color = 0
     Object.keys(parts).forEach(function(name) {
         start = end
@@ -70,8 +88,11 @@ const drawGroup = function() {
         wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 60, start + angle, end + angle, false)
         wheel.lineTo(SIZE / 2, SIZE / 2)
         wheel.fillStyle = colors[color]
+        wheel.strokeStyle = '#000'
+        wheel.lineWidth = 3
         wheel.fill()
-        color = (color + 1) % 3
+        wheel.stroke()
+        color = (color + 1) % colors.length
     })
     drawNeedle()
 }
@@ -116,16 +137,94 @@ const getProportion = function(value, min) {
     return 1 / Math.pow(2, value - min + 1)
 }
 
-const run = function() {
-    let speed = 0.8 * Math.random() + 0.2
+const run = function(finished) {
+    if (parts === undefined) {
+        return
+    }
+    $('#run').prop('disabled', true)
+    let speed = 0.1 * Math.random() + 0.2
     const slowDown = 0.001
     const timer = setInterval(function() {
         angle += speed
         speed -= slowDown
         drawGroup()
-        console.log(angle);
         if (speed <= 0) {
             clearTimeout(timer)
+            $('#run').prop('disabled', false)
+            finished()
         }
     }, 1000 / 60)
+}
+
+const selectChoice = function() {
+    while (angle > 0) {
+        angle -= 2 * Math.PI
+    }
+
+    let sum = 0
+    let selected
+    Object.keys(parts).forEach(function(part) {
+        sum += parts[part]
+        if (-angle <= sum && selected === undefined) {
+            selected = part
+        }
+    })
+    if (selected !== undefined) {
+        group.choices.forEach(function(choice) {
+            if (choice.name == selected) {
+                choice.points++
+            }
+        })
+        updateGroup()
+    }
+}
+
+const updateGroup = function() {
+    $.post('php/save.php', {
+        file: group
+    }, function(data) {
+        console.log(data);
+        reloadGroup()
+    })
+}
+
+const getRandomBrightColor = function() {
+    const letters = '0123456789abcdef'
+    let code = ''
+    for (let i = 0; i < 2; i++) {
+        code += letters[Math.floor(Math.random() * letters.length)]
+    }
+
+    let color = '#'
+
+    const type = Math.floor(Math.random() * 6)
+    switch (type) {
+        case 0: // Red -> Yellow
+            color += 'ff' + code + '00'
+            break
+
+        case 1: // Yellow -> Green
+            color += code + 'ff00'
+            break
+
+        case 2: // Green -> Cyan
+            color += '00ff' + code
+            break
+
+        case 3: // Cyan -> Blue
+            color += '00' + code + 'ff'
+            break
+
+        case 4: // Blue -> Magenta
+            color += code + '00ff'
+            break
+
+        case 5: // Magenta -> Red
+            color += 'ff00' + code
+            break
+
+        default:
+            return undefined
+    }
+    return color
 }
