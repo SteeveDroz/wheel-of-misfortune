@@ -18,6 +18,7 @@ $(function() {
     wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 50, 0, 2 * Math.PI, false)
     wheel.fill()
 
+    $('#mask').hide()
     $('#popup').hide()
 
     populateGroups()
@@ -227,6 +228,7 @@ const selectChoice = function() {
 
 const openPopup = function(content, callback) {
     $('#popup-text').html(content)
+    $('#mask').fadeIn()
     $('#popup').fadeIn()
     $('#ok').unbind('click')
     $('#ok').click(function() {
@@ -241,6 +243,7 @@ const closePopup = function() {
     $('#popup').fadeOut(400, function() {
         $('#popup-text').text('')
     })
+    $('#mask').fadeOut()
 }
 
 const updateGroup = function(callback) {
