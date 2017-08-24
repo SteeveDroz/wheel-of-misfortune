@@ -1,4 +1,4 @@
-const SIZE = 800
+let SIZE = 800
 let canvas
 let wheel
 let group
@@ -7,6 +7,8 @@ let angle = 0
 let colors
 
 $(function() {
+    SIZE = $('body').width()
+    console.log(SIZE);
     canvas = $('#wheel')
     canvas[0].width = SIZE
     canvas[0].height = SIZE

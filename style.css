@@ -1,3 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 36pt;
+    margin-top: 0;
+}
+
 #popup {
     position: absolute;
     background: white;
@@ -22,6 +35,10 @@
     width: 100%;
 }
 
-.buttons button {
+.center {
+    justify-content: center;
+}
+
+.buttons * {
     font-size: 24pt;
 }
