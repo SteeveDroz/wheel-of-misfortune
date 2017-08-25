@@ -1,6 +1,5 @@
 "use strict";
 
-console.log('variables.js');
 let SIZE = 800
 let canvas
 let wheel
