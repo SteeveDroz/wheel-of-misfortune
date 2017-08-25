@@ -1,12 +1,6 @@
-let SIZE = 800
-let canvas
-let wheel
-let group
-let parts
-let angle = 0
-let colors
-let proportional
+"use strict";
 
+console.log('wheel.js');
 $(function() {
     SIZE = $('body').width()
     canvas = $('#wheel')
@@ -63,23 +57,6 @@ const reloadGroup = function(callback) {
         $('#proportional').prop('checked', proportional)
         parts = calculateParts()
         drawGroup()
-    })
-}
-
-const save = function() {
-    $.post('php/save.php', {
-        file: {
-            group: 'test-1',
-            choices: [{
-                name: 'user 1',
-                points: 3
-            }, {
-                name: 'user 2',
-                points: 1
-            }]
-        }
-    }, function(data) {
-        alert(data)
     })
 }
 

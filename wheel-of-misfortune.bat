@@ -6,5 +6,5 @@ if %ERRORLEVEL% neq 0 (
 )
 else (
     start http://localhost:3000
-    php -S localhost:3000
+    php -S localhost:3000 -t resources
 )

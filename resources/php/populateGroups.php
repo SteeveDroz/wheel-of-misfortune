@@ -1,7 +1,7 @@
 <?php
 
 $groups = [];
-if ($dir = opendir(dirname(__dir__) . '/data/'))
+if ($dir = opendir(dirname(dirname(__dir__)) . '/data/'))
 {
     while ($file = readdir($dir))
     {
