@@ -23,6 +23,7 @@ $(function() {
 
     $('#proportional').change(function() {
         group.proportional = $(this).is(':checked')
+        clearDisabled()
         updateGroup(reloadGroup)
     })
 

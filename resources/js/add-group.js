@@ -42,3 +42,31 @@ const addGroup = function() {
         })
     })
 }
+
+const clearDisabled = function() {
+    $('#proportional').prop('checked', proportional)
+    $('#disabled-choices').text('')
+    for (let i = 0; i < group.choices.length; i++) {
+        const choice = group.choices[i]
+        const line = $('<div>', {
+            css: {
+                display: 'flex',
+                flexDirection: 'row'
+            }
+        })
+        line.append($('<input>', {
+            type: 'checkbox',
+            id: 'disable_' + i,
+            name: 'disable_' + i,
+            click: function() {
+                parts = calculateParts()
+                drawGroup()
+            }
+        }))
+        line.append($('<label>', {
+            for: 'disable_' + i,
+            text: choice.name
+        }))
+        $('#disabled-choices').append(line)
+    }
+}
