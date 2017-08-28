@@ -80,6 +80,70 @@ const getRandomBrightColor = function() {
     return color
 }
 
+const hsv2Rgb = function(h, s, v) {
+    if (arguments.length == 1) {
+        v = h.v
+        s = h.s
+        h = h.h
+    }
+    const rgb = {
+        r: 0,
+        g: 0,
+        b: 0
+    }
+    const firstColor = s * v
+    const angle = 6 * h / (2 * Math.PI)
+    const secondColor = firstColor * (1 - Math.abs(angle % 2 - 1))
+    if (angle < 1) {
+        rgb.r = firstColor
+        rgb.g = secondColor
+    } else if (angle < 2) {
+        rgb.g = firstColor
+        rgb.r = secondColor
+    } else if (angle < 3) {
+        rgb.g = firstColor
+        rgb.b = secondColor
+    } else if (angle < 4) {
+        rgb.b = firstColor
+        rgb.g = secondColor
+    } else if (angle < 5) {
+        rgb.b = firstColor
+        rgb.r = secondColor
+    } else if (angle < 6) {
+        rgb.r = firstColor
+        rgb.b = secondColor
+    }
+
+    return rgb
+}
+
+const rgb2Color = function(rgb) {
+    return '#' + percent2Hex(rgb.r) + percent2Hex(rgb.g) + percent2Hex(rgb.b)
+}
+
+const percent2Hex = function(percent) {
+    const value = 16 * percent
+    if (value < 0) {
+        return undefined
+    } else if (value <= 10) {
+        return Math.floor(value)
+    } else if (value <= 11) {
+        return 'A'
+    } else if (value <= 12) {
+        return 'B'
+    } else if (value <= 13) {
+        return 'C'
+    } else if (value <= 14) {
+        return 'D'
+    } else if (value <= 15) {
+        return 'E'
+    } else if (value <= 16) {
+        return 'F'
+    }
+    return undefined
+}
+
 const getRainbowColor = function(n, total) {
-    return '#000'
+    const rgb = hsv2Rgb(n / total * 2 * Math.PI, 1, 1)
+    return rgb2Color(rgb)
 }

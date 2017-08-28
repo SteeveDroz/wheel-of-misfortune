@@ -46,9 +46,9 @@ const drawNeedle = function() {
 const setColors = function() {
     if (group.choices !== undefined) {
         colors = []
-        group.choices.forEach(function(choice) {
-            colors.push(getRandomBrightColor())
-        })
+        for (let i = 0; i < group.choices.length; i++) {
+            colors.push(getRainbowColor(i, group.choices.length))
+        }
     }
 }
 
