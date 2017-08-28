@@ -13,6 +13,7 @@ $(function() {
 
     $('#mask').hide()
     $('#popup').hide()
+    $('#disabled-choices').hide()
 
     populateGroups()
 
@@ -29,7 +30,12 @@ $(function() {
         run(selectChoice)
     })
 
+    $('#hide').click(function() {
+        $('#disabled-choices').slideToggle()
+    })
+
     $('#reset').click(reset)
+
     $('#add-group').click(function() {
         openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>', addGroup)
     })
