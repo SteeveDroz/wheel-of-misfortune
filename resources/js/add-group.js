@@ -1,37 +1,5 @@
 "use strict";
 
-const populateGroups = function(callback) {
-    $.getJSON('php/populateGroups.php', function(data) {
-        const groups = $('#groups')
-        groups.html('')
-        $.each(data, function(id) {
-            groups.append($('<option>', {
-                val: data[id],
-                text: data[id].substr(0, data[id].length - 5)
-            }))
-        })
-        reloadGroup(setColors)
-        if (callback !== undefined) {
-            callback(data)
-        }
-    })
-}
-
-const reloadGroup = function(callback) {
-    $.getJSON('php/getGroup.php', {
-        name: $('#groups').val()
-    }, function(data) {
-        group = JSON.parse(data)
-        if (callback !== undefined) {
-            callback()
-        }
-        proportional = group.proportional == 'true'
-        $('#proportional').prop('checked', proportional)
-        parts = calculateParts()
-        drawGroup()
-    })
-}
-
 const addGroup = function() {
     let newName = $('#new-group-name').val()
     const newChoices = $('#new-group-choices')
