@@ -79,3 +79,7 @@ const getRandomBrightColor = function() {
     }
     return color
 }
+
+const getRainbowColor = function(n, total) {
+    return '#000'
+}
