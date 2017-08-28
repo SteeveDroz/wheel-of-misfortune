@@ -40,44 +40,7 @@ const getProportion = function(value, min) {
 }
 
 const getRandomBrightColor = function() {
-    const letters = '0123456789abcdef'
-    let code = ''
-    for (let i = 0; i < 2; i++) {
-        code += letters[Math.floor(Math.random() * letters.length)]
-    }
-
-    let color = '#'
-
-    const type = Math.floor(Math.random() * 6)
-    switch (type) {
-        case 0: // Red -> Yellow
-            color += 'ff' + code + '00'
-            break
-
-        case 1: // Yellow -> Green
-            color += code + 'ff00'
-            break
-
-        case 2: // Green -> Cyan
-            color += '00ff' + code
-            break
-
-        case 3: // Cyan -> Blue
-            color += '00' + code + 'ff'
-            break
-
-        case 4: // Blue -> Magenta
-            color += code + '00ff'
-            break
-
-        case 5: // Magenta -> Red
-            color += 'ff00' + code
-            break
-
-        default:
-            return undefined
-    }
-    return color
+    return rgb2Color(hsv2Rgb(2 * Math.PI * Math.random(), 1, 1))
 }
 
 const hsv2Rgb = function(h, s, v) {
