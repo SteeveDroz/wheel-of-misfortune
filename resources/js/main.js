@@ -27,6 +27,7 @@ $(function() {
     })
 
     $('#run').click(function() {
+        $('#disabled-choices').slideUp()
         run(selectChoice)
     })
 

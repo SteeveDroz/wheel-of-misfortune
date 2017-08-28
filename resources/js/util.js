@@ -1,37 +1,61 @@
 "use strict";
 
+const isDisabled = function(id) {
+    return $('#disable_' + id).is(':checked')
+}
+
 const calculateParts = function() {
     const min = getMin()
     const total = proportional ? getTotalProportional(min) : getTotalSimple(min)
     const parts = {}
-    group.choices.forEach(function(choice) {
-        const part = proportional ? getProportion(choice.points, min) : (choice.points == min ? 1 : 0)
+    for (let i = 0; i < group.choices.length; i++) {
+        const choice = group.choices[i]
+        let part = 0
+        if (isDisabled(i)) {
+            part = 0
+        } else if (proportional) {
+            part = getProportion(choice.points, min)
+        } else {
+            part = (choice.points == min) ? 1 : 0
+        }
         parts[choice.name] = part / total * 2 * Math.PI
-    })
+    }
     return parts
 }
 
 const getMin = function() {
     let min = Infinity
-    group.choices.forEach(function(choice) {
+    for (let i = 0; i < group.choices.length; i++) {
+        const choice = group.choices[i]
+        if (isDisabled(i)) {
+            continue
+        }
         min = Math.min(choice.points, min)
-    })
+    }
     return min
 }
 
 const getTotalSimple = function(min) {
     let total = 0
-    group.choices.forEach(function(choice) {
+    for (let i = 0; i < group.choices.length; i++) {
+        const choice = group.choices[i]
+        if (isDisabled(i)) {
+            continue
+        }
         total += choice.points == min ? 1 : 0
-    })
+    }
     return total
 }
 
 const getTotalProportional = function(min) {
     let total = 0
-    group.choices.forEach(function(choice) {
+    for (let i = 0; i < group.choices.length; i++) {
+        const choice = group.choices[i]
+        if (isDisabled(i)) {
+            continue
+        }
         total += getProportion(choice.points, min)
-    })
+    }
     return total
 }
 

@@ -11,6 +11,14 @@ h1 {
     margin-top: 0;
 }
 
+#disabled-choices{
+    display: flex;
+    flex-flow: column wrap;
+    max-height: 100px;
+    align-content: space-between;
+    width:100%;
+}
+
 #mask {
     position: absolute;
     background: rgba(0, 0, 0, 0.3);
