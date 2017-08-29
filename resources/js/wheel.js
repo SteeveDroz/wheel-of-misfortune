@@ -88,6 +88,7 @@ const selectChoice = function() {
         if (selected !== undefined) {
             group.choices.forEach(function(choice) {
                 if (choice.name == selected) {
+                    group.last = choice.name
                     choice.points++
                 }
             })

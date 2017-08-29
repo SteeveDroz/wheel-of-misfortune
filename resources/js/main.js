@@ -28,7 +28,6 @@ $(function() {
     })
 
     $('#twice-in-a-row').change(function(){
-        twiceInARow=$(this).is(':checked')
         updateGroup(reloadGroup)
     })
 

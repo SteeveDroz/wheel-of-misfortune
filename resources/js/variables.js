@@ -8,4 +8,3 @@ let parts
 let angle = 0
 let colors
 let proportional
-let twiceInARow = false

@@ -4,6 +4,10 @@ const isDisabled = function(id) {
     return $('#disable_' + id).is(':checked')
 }
 
+const isTwiceInARow = function(id) {
+    return $('#twice-in-a-row').not(':checked').length > 0 && group.last === group.choices[id].name
+}
+
 const calculateParts = function() {
     const min = getMin()
     const total = proportional ? getTotalProportional(min) : getTotalSimple(min)
@@ -11,7 +15,7 @@ const calculateParts = function() {
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
         let part = 0
-        if (isDisabled(i)) {
+        if (isDisabled(i) || isTwiceInARow(i)) {
             part = 0
         } else if (proportional) {
             part = getProportion(choice.points, min)
@@ -27,7 +31,7 @@ const getMin = function() {
     let min = Infinity
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
-        if (isDisabled(i)) {
+        if (isDisabled(i) || isTwiceInARow(i)) {
             continue
         }
         min = Math.min(choice.points, min)
@@ -39,7 +43,7 @@ const getTotalSimple = function(min) {
     let total = 0
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
-        if (isDisabled(i)) {
+        if (isDisabled(i) || isTwiceInARow(i)) {
             continue
         }
         total += choice.points == min ? 1 : 0
@@ -51,7 +55,7 @@ const getTotalProportional = function(min) {
     let total = 0
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
-        if (isDisabled(i)) {
+        if (isDisabled(i) || isTwiceInARow(i)) {
             continue
         }
         total += getProportion(choice.points, min)
