@@ -23,11 +23,11 @@ const drawGroup = function() {
 
         const text = name + ' (' + (Math.round(10000 * parts[name] / (2 * Math.PI)) / 100) + '%)'
         wheel.translate(SIZE / 2, SIZE / 2)
-        wheel.rotate(start + angle)
+        wheel.rotate(start + (end - start) / 2 + angle)
         wheel.fillStyle = '#000'
         wheel.font = '14pt sans-serif'
         wheel.fillText(text, SIZE / 2 - 65 - wheel.measureText(text).width, 7)
-        wheel.rotate(-start - angle)
+        wheel.rotate(-start - (end - start) / 2 - angle)
         wheel.translate(-SIZE / 2, -SIZE / 2)
     })
     drawNeedle()
