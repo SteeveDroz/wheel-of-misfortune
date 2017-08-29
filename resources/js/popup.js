@@ -28,5 +28,6 @@ const confirmReset = function() {
     group.choices.forEach(function(choice) {
         choice.points = 0
     })
+    group.last = undefined
     updateGroup(reloadGroup)
 }
