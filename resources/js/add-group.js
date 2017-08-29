@@ -50,7 +50,7 @@ const editGroup = function() {
         .split(/[\r\n]+/)
         .map(function(element) {
             element = element.trim()
-            return element.split(/\s+->\s/)
+            return element.split(/\s*->\s*/)
         })
         .filter(function(element) {
             if (element.length == 2) {
