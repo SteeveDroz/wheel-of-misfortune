@@ -10,14 +10,14 @@ const isTwiceInARow = function(id) {
 
 const calculateParts = function() {
     const min = getMin()
-    const total = proportional ? getTotalProportional(min) : getTotalSimple(min)
+    const total = group.proportional ? getTotalProportional(min) : getTotalSimple(min)
     const parts = {}
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
         let part = 0
         if (isDisabled(i) || isTwiceInARow(i)) {
             part = 0
-        } else if (proportional) {
+        } else if (group.proportional) {
             part = getProportion(choice.points, min)
         } else {
             part = (choice.points == min) ? 1 : 0

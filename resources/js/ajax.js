@@ -38,8 +38,8 @@ const reloadGroup = function(callback) {
         if (callback !== undefined) {
             callback()
         }
-        proportional = group.proportional == 'true'
-        $('#proportional').prop('checked', proportional)
+        group.proportional = group.proportional == 'true'
+        $('#proportional').prop('checked', group.proportional)
         parts = calculateParts()
         drawGroup()
     })
