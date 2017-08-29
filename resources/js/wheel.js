@@ -25,8 +25,8 @@ const drawGroup = function() {
         wheel.translate(SIZE / 2, SIZE / 2)
         wheel.rotate(start + angle)
         wheel.fillStyle = '#000'
-        wheel.font = '20pt sans-serif'
-        wheel.fillText(text, SIZE / 2 - 65 - wheel.measureText(text).width, 25)
+        wheel.font = '14pt sans-serif'
+        wheel.fillText(text, SIZE / 2 - 65 - wheel.measureText(text).width, 7)
         wheel.rotate(-start - angle)
         wheel.translate(-SIZE / 2, -SIZE / 2)
     })
