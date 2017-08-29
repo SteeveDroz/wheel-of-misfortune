@@ -1,7 +1,4 @@
 body {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
     margin: auto;
     max-width: 700px;
 }
@@ -9,14 +6,6 @@ body {
 h1 {
     font-size: 36pt;
     margin-top: 0;
-}
-
-#disabled-choices {
-    align-content: space-between;
-    display: flex;
-    flex-flow: column wrap;
-    max-height: 100px;
-    width: 100%;
 }
 
 #mask {
@@ -48,6 +37,10 @@ h1 {
     text-align: center;
 }
 
+.horizontal *, .vertical *, .multi-column * {
+    font-size: 24pt;
+}
+
 .horizontal {
     align-items: center;
     display: flex;
@@ -56,11 +49,19 @@ h1 {
     width: 100%;
 }
 
-.horizontal * {
-    font-size: 24pt;
+.vertical {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
-.vertical {
+.multi-column{
+    align-content: space-between;
+    align-items: flex-start;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    max-height: 200px;
+    width:100%;
 }

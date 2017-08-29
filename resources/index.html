@@ -17,16 +17,16 @@
 
 <body class="vertical">
     <h1>The Wheel of Misfortune</h1>
-    <div class="horizontal blocked">
+    <div class="horizontal blockable">
         <select id="groups"></select>
         <label for="proportional">Proportional</label>
         <input type="checkbox" name="proportional" id="proportional">
         <button id="run">Run</button>
-        <button id="hide">Disabled</button>
+        <button id="disabled">Disabled</button>
     </div>
-    <div id="disabled-choices"></div>
+    <div id="disabled-choices" class="multi-column"></div>
     <canvas id="wheel"></canvas>
-    <div class="horizontal blocked">
+    <div class="horizontal blockable">
         <button id="reset">Reset</button>
         <button id="add-group">Add group</button>
         <button id="edit-group">Edit group</button>

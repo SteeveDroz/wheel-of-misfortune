@@ -32,7 +32,7 @@ $(function() {
         run(selectChoice)
     })
 
-    $('#hide').click(function() {
+    $('#disabled').click(function() {
         $('#disabled-choices').slideToggle()
     })
 
