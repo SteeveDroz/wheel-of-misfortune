@@ -10,8 +10,12 @@ const populateGroups = function(callback) {
                 text: data[id].substr(0, data[id].length - 5)
             }))
         })
-        reloadGroup(setColors)
-        clearDisabled()
+
+        reloadGroup(function() {
+            setColors()
+            clearDisabled()
+        })
+
         if (callback !== undefined) {
             callback(data)
         }
