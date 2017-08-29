@@ -44,7 +44,6 @@ const addGroup = function() {
 }
 
 const clearDisabled = function() {
-    $('#proportional').prop('checked', proportional)
     $('#disabled-choices').text('')
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
