@@ -1,9 +1,9 @@
 body {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 700px;
     margin: auto;
+    max-width: 700px;
 }
 
 h1 {
@@ -12,35 +12,35 @@ h1 {
 }
 
 #disabled-choices {
+    align-content: space-between;
     display: flex;
     flex-flow: column wrap;
     max-height: 100px;
-    align-content: space-between;
     width: 100%;
 }
 
 #mask {
-    position: absolute;
     background: rgba(0, 0, 0, 0.3);
+    bottom: 0;
     left: 0;
+    position: absolute;
     right: 0;
     top: 0;
-    bottom: 0;
 }
 
 #popup {
-    position: absolute;
+    align-items: center;
     background: white;
+    border-radius: 50px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     left: 50%;
+    max-width: 300px;
+    padding: 50px;
+    position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 50px;
-    border-radius: 50px;
-    align-items: center;
-    max-width: 300px;
 }
 
 #popup-text {
@@ -49,11 +49,11 @@ h1 {
 }
 
 .horizontal {
+    align-items: center;
     display: flex;
     flex-flow: row wrap;
-    width: 100%;
-    align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .horizontal * {
