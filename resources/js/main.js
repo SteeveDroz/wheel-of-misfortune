@@ -27,6 +27,11 @@ $(function() {
         updateGroup(reloadGroup)
     })
 
+    $('#twice-in-a-row').change(function(){
+        twiceInARow=$(this).is(':checked')
+        updateGroup(reloadGroup)
+    })
+
     $('#run').click(function() {
         $('#disabled-choices').slideUp()
         run(selectChoice)
