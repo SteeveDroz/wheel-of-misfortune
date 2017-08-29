@@ -11,6 +11,12 @@ const isTwiceInARow = function(id) {
 const calculateParts = function() {
     const min = getMin()
     const total = group.proportional ? getTotalProportional(min) : getTotalSimple(min)
+    $('#run').prop('disabled', total == 0)
+    if (total == 0) {
+        return {
+            "Error, no choices available": 2 * Math.PI
+        }
+    }
     const parts = {}
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
