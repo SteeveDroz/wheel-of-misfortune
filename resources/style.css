@@ -60,12 +60,24 @@ h1 {
     justify-content: center;
 }
 
-.multi-column{
+.multi-column {
     align-content: space-between;
     align-items: flex-start;
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
     max-height: 200px;
-    width:100%;
+    width: 100%;
+}
+
+.small {
+    width: auto;
+}
+
+.left, .top {
+    align-items: flex-start;
+}
+
+.right, .bottom {
+    align-items: flex-end;
 }

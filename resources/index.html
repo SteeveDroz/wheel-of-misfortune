@@ -19,8 +19,16 @@
     <h1>The Wheel of Misfortune</h1>
     <div class="horizontal blockable">
         <select id="groups"></select>
-        <label for="proportional">Proportional</label>
-        <input type="checkbox" name="proportional" id="proportional">
+        <div class="vertical right">
+            <div class="horizontal small">
+                <label for="proportional">Proportional</label>
+                <input type="checkbox" name="proportional" id="proportional">
+            </div>
+            <div class="horizontal small">
+                <label for="twice-in-a-row">Twice in a row</label>
+                <input type="checkbox" name="twice-in-a-row" id="twice-in-a-row" checked>
+            </div>
+        </div>
         <button id="run">Run</button>
         <button id="disabled">Disabled</button>
     </div>
