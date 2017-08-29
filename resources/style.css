@@ -37,6 +37,10 @@ h1 {
     text-align: center;
 }
 
+#popup input, #popup textarea {
+    font-size: 12pt;
+}
+
 .horizontal *, .vertical *, .multi-column * {
     font-size: 24pt;
 }
