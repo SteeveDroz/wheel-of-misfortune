@@ -56,7 +56,7 @@ const run = function(finished) {
     if (parts === undefined) {
         return
     }
-    $('#working *').prop('disabled', true)
+    $('.blocked *').prop('disabled', true)
     let speed = 0.3 * Math.random() + 0.2
     const slowDown = 0.001
     const timer = setInterval(function() {
@@ -65,7 +65,7 @@ const run = function(finished) {
         drawGroup()
         if (speed <= 0) {
             clearTimeout(timer)
-            $('#working *').prop('disabled', false)
+            $('.blocked *').prop('disabled', false)
             finished()
         }
     }, 1000 / 60)
