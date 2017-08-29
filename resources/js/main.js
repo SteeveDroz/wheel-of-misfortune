@@ -41,4 +41,10 @@ $(function() {
     $('#add-group').click(function() {
         openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>', addGroup)
     })
+    $('#edit-group').click(function() {
+        const choiceLines = group.choices.map(function(choice) {
+            return choice.name + ' -> ' + choice.points
+        })
+        openPopup('Edit group<input id="edit-group-name" placeholder="Group name" value="' + group.group + '"><textarea id="edit-group-choices" rows="20" placeholder="Choices, each on a new line">' + choiceLines.join('\n') + '</textarea>', editGroup)
+    })
 })
