@@ -74,7 +74,7 @@ const editGroup = function() {
     }
 
     const editGroup = {}
-    editGroup.group = newName
+    editGroup.group = editName
     editGroup.proportional = false
     editGroup.choices = []
     editChoices.forEach(function(choice) {
@@ -83,11 +83,18 @@ const editGroup = function() {
             points: choice[1]
         })
     })
-    //TODO Change the rest
-    group = newGroup
+    editGroup.proportional = group.proportional
+
+    const oldName = group.group
+    group = editGroup
     updateGroup(function() {
+        if (oldName != editName) {
+            $.post('php/delete.php', {
+                file: oldName
+            })
+        }
         populateGroups(function() {
-            $('#groups').val(newName + '.json')
+            $('#groups').val(editName + '.json')
             reloadGroup(setColors)
         })
     })
