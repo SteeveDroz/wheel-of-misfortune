@@ -11,12 +11,12 @@ h1 {
     margin-top: 0;
 }
 
-#disabled-choices{
+#disabled-choices {
     display: flex;
     flex-flow: column wrap;
     max-height: 100px;
     align-content: space-between;
-    width:100%;
+    width: 100%;
 }
 
 #mask {
@@ -48,17 +48,19 @@ h1 {
     text-align: center;
 }
 
-.buttons {
+.horizontal {
     display: flex;
-    justify-content: space-around;
+    flex-flow: row wrap;
     width: 100%;
     align-items: center;
-}
-
-.center {
     justify-content: center;
 }
 
-.buttons * {
+.horizontal * {
     font-size: 24pt;
+}
+
+.vertical {
+    display: flex;
+    flex-flow: row wrap;
 }

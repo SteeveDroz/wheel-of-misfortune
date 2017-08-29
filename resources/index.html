@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
-<body>
+<body class="vertical">
     <h1>The Wheel of Misfortune</h1>
-    <div id="working" class="buttons center">
+    <div id="working" class="horizontal">
         <select id="groups"></select>
         <label for="proportional">Proportional</label>
         <input type="checkbox" name="proportional" id="proportional">
@@ -26,7 +26,7 @@
     </div>
     <div id="disabled-choices"></div>
     <canvas id="wheel"></canvas>
-    <div class="buttons center">
+    <div class="horizontal">
         <button id="reset">Reset</button>
         <button id="add-group">Add group</button>
         <button id="edit-group">Edit group</button>
@@ -34,7 +34,7 @@
     <div id="mask">
         <div id="popup">
             <div id="popup-text">No one for now</div>
-            <div class="buttons">
+            <div class="horizontal">
                 <button id="ok">OK</button>
                 <button id="cancel">Cancel</button>
             </div>
