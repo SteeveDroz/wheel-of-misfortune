@@ -18,7 +18,10 @@ $(function() {
     populateGroups()
 
     $('#groups').change(function() {
-        reloadGroup(setColors)
+        reloadGroup(function() {
+			setColors()
+			clearDisabled()
+		})
     })
 
     $('#proportional').change(function() {
