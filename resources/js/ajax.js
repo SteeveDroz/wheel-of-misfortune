@@ -2,52 +2,53 @@
 
 const ipc = require('electron').ipcRenderer
 
-ipc.on('load-group', function(event, group) {
-    console.log(group);
+ipc.on('populate-groups', function(event, data, callback) {
+    const groups = $('#groups')
+    groups.html('')
+    data.forEach(function(file) {
+        const name = file.split('.').slice(0, -1).join('.')
+        groups.append($('<option>', {
+            val: name,
+            text: name
+        }))
+    })
+
+    reloadGroup(function() {
+        setColors()
+        clearDisabled()
+    })
+
+    if (callback != null) {
+        callback(data)
+    }
+})
+
+ipc.on('load-group', function(event, data, callback) {
+    group = data
+    if (callback != null) {
+        callback()
+    }
+    group.proportional = group.proportional == 'true'
+    $('#proportional').prop('checked', group.proportional)
+    parts = calculateParts()
+    drawGroup()
+})
+
+ipc.on('save-group', function(event, callback) {
+    if (callback != null) {
+        callback()
+    }
 })
 
 const populateGroups = function(callback) {
-    $.getJSON('php/populateGroups.php', function(data) {
-        const groups = $('#groups')
-        groups.html('')
-        $.each(data, function(id) {
-            groups.append($('<option>', {
-                val: data[id],
-                text: data[id].substr(0, data[id].length - 5)
-            }))
-        })
-
-        reloadGroup(function() {
-            setColors()
-            clearDisabled()
-        })
-
-        if (callback !== undefined) {
-            callback(data)
-        }
-    })
+    ipc.send('populate-groups', callback)
 }
 
 const updateGroup = function(callback) {
-    $.post('php/save.php', {
-        file: group
-    }, function(data) {
-        callback()
-    })
-    ipc.send('load-group', 'XYZ')
+    ipc.send('save-group', group, callback)
 }
 
 const reloadGroup = function(callback) {
-    $.getJSON('php/getGroup.php', {
-        name: $('#groups').val()
-    }, function(data) {
-        group = JSON.parse(data)
-        if (callback !== undefined) {
-            callback()
-        }
-        group.proportional = group.proportional == 'true'
-        $('#proportional').prop('checked', group.proportional)
-        parts = calculateParts()
-        drawGroup()
-    })
+    console.log(callback);
+    ipc.send('load-group', $('#groups').val(), callback)
 }
