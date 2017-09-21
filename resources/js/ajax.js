@@ -1,5 +1,11 @@
 "use strict";
 
+const ipc = require('electron').ipcRenderer
+
+ipc.on('load-group', function(event, group) {
+    console.log(group);
+})
+
 const populateGroups = function(callback) {
     $.getJSON('php/populateGroups.php', function(data) {
         const groups = $('#groups')
@@ -28,6 +34,7 @@ const updateGroup = function(callback) {
     }, function(data) {
         callback()
     })
+    ipc.send('load-group', 'XYZ')
 }
 
 const reloadGroup = function(callback) {
