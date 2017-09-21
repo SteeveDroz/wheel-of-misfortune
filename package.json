@@ -1,0 +1,24 @@
+{
+  "name": "wheel-of-misfortune",
+  "version": "1.3.0",
+  "description": "An app to randomly select a given choice",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SteeveDroz/wheel-of-misfortune.git"
+  },
+  "author": "Steeve Droz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SteeveDroz/wheel-of-misfortune/issues"
+  },
+  "homepage": "https://github.com/SteeveDroz/wheel-of-misfortune#readme",
+  "devDependencies": {
+    "electron": "^1.7.6",
+    "jquery": "^3.2.1"
+  }
+}
