@@ -2,11 +2,15 @@
 
 const ipc = require('electron').ipcRenderer
 
+const populateGroups = function(callback) {
+    ipc.send('populate-groups', callback)
+}
+
 ipc.on('populate-groups', function(event, data, callback) {
     const groups = $('#groups')
     groups.html('')
     data.forEach(function(file) {
-        const name = file.split('.').slice(0, -1).join('.')
+        const name = removeFileType(file)
         groups.append($('<option>', {
             val: name,
             text: name
@@ -23,6 +27,11 @@ ipc.on('populate-groups', function(event, data, callback) {
     }
 })
 
+const reloadGroup = function(callback) {
+    console.log(callback);
+    ipc.send('load-group', $('#groups').val(), callback)
+}
+
 ipc.on('load-group', function(event, data, callback) {
     group = data
     if (callback != null) {
@@ -34,21 +43,12 @@ ipc.on('load-group', function(event, data, callback) {
     drawGroup()
 })
 
+const updateGroup = function(callback) {
+    ipc.send('save-group', group, callback)
+}
+
 ipc.on('save-group', function(event, callback) {
     if (callback != null) {
         callback()
     }
 })
-
-const populateGroups = function(callback) {
-    ipc.send('populate-groups', callback)
-}
-
-const updateGroup = function(callback) {
-    ipc.send('save-group', group, callback)
-}
-
-const reloadGroup = function(callback) {
-    console.log(callback);
-    ipc.send('load-group', $('#groups').val(), callback)
-}

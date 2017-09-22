@@ -144,3 +144,7 @@ const getRainbowColor = function(n, total) {
     const rgb = hsv2Rgb(n / total * 2 * Math.PI, 1, 1)
     return rgb2Color(rgb)
 }
+
+const removeFileType = function(fileName) {
+    return fileName.split('.').slice(0, -1).join('.')
+}
