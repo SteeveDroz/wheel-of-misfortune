@@ -3,10 +3,7 @@
 const ipc = require('electron').ipcRenderer
 
 const populateGroups = function(callback) {
-    ipc.send('populate-groups', callback)
-}
-
-ipc.on('populate-groups', function(event, data, callback) {
+    const data = ipc.sendSync('populate-groups')
     const groups = $('#groups')
     groups.html('')
     data.forEach(function(file) {
@@ -17,23 +14,20 @@ ipc.on('populate-groups', function(event, data, callback) {
         }))
     })
 
-    reloadGroup(function() {
-        setColors()
-        clearDisabled()
-    })
+    if (data.length > 0) {
+        reloadGroup(function() {
+            setColors()
+            clearDisabled()
+        })
+    }
 
     if (callback != null) {
         callback(data)
     }
-})
-
-const reloadGroup = function(callback) {
-    console.log(callback);
-    ipc.send('load-group', $('#groups').val(), callback)
 }
 
-ipc.on('load-group', function(event, data, callback) {
-    group = data
+const reloadGroup = function(callback) {
+    group = ipc.sendSync('load-group', $('#groups').val(), callback)
     if (callback != null) {
         callback()
     }
@@ -41,14 +35,11 @@ ipc.on('load-group', function(event, data, callback) {
     $('#proportional').prop('checked', group.proportional)
     parts = calculateParts()
     drawGroup()
-})
-
-const updateGroup = function(callback) {
-    ipc.send('save-group', group, callback)
 }
 
-ipc.on('save-group', function(event, callback) {
+const updateGroup = function(callback) {
+    ipc.sendSync('save-group', group)
     if (callback != null) {
         callback()
     }
-})
+}

@@ -37,7 +37,7 @@ const addGroup = function() {
     group = newGroup
     updateGroup(function() {
         populateGroups(function() {
-            $('#groups').val(newName + '.json')
+            $('#groups').val(newName)
             reloadGroup(setColors)
         })
     })
@@ -94,7 +94,7 @@ const editGroup = function() {
             })
         }
         populateGroups(function() {
-            $('#groups').val(editName + '.json')
+            $('#groups').val(editName)
             reloadGroup(setColors)
         })
     })

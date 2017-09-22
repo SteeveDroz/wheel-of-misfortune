@@ -36,26 +36,26 @@ app.on('activate', function() {
     }
 })
 
-ipc.on('populate-groups', function(event, callback) {
+ipc.on('populate-groups', function(event) {
     const files = fs.readdirSync('data').filter(function(file) {
         return file.endsWith('.json')
     })
-    event.sender.send('populate-groups', files, callback)
+    event.returnValue = files
 })
-ipc.on('save-group', function(event, group, callback) {
+
+ipc.on('save-group', function(event, group) {
     try {
-        fs.writeFileSync(`data/${group.group}.json`, group, 'utf-8');
-        event.sender.send('save-group', callback)
+        fs.writeFileSync(`data/${group.group}.json`, JSON.stringify(group), 'utf-8');
+        event.returnValue = null
     } catch (e) {
         console.log('Failed to save the file !')
     }
 })
 
-ipc.on('load-group', function(event, name, callback) {
-    console.log(callback);
+ipc.on('load-group', function(event, name) {
     try {
         const group = JSON.parse(fs.readFileSync(`data/${name}.json`, 'utf-8'));
-        event.sender.send('load-group', group, callback)
+        event.returnValue = group
     } catch (e) {
         console.log('Failed to load the file !')
     }
