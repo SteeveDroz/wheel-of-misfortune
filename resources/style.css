@@ -1,11 +1,48 @@
 body {
-    margin: auto;
-    max-width: 700px;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    height: 100vh;
+    font-size: 20pt;
+}
+
+aside {
+    background: lightgray;
+    display: flex;
+    flex-direction: column;
+}
+
+#center {
+    background: white;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-entry {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.space {
+    flex-grow: 1;
 }
 
 h1 {
     font-size: 36pt;
-    margin-top: 0;
+    margin: 0;
+}
+
+input, select, button {
+    font-size: 20pt;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+    margin: 5px;
 }
 
 #mask {
@@ -39,45 +76,4 @@ h1 {
 
 #popup input, #popup textarea {
     font-size: 12pt;
-}
-
-.horizontal *, .vertical *, .multi-column * {
-    font-size: 20pt;
-}
-
-.horizontal {
-    align-items: center;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 100%;
-}
-
-.vertical {
-    align-items: center;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-}
-
-.multi-column {
-    align-content: space-between;
-    align-items: flex-start;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    max-height: 200px;
-    width: 100%;
-}
-
-.small {
-    width: auto;
-}
-
-.left, .top {
-    align-items: flex-start;
-}
-
-.right, .bottom {
-    align-items: flex-end;
 }

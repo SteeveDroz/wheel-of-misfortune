@@ -1,7 +1,7 @@
 "use strict";
 
 $(function() {
-    SIZE = $('body').width()
+    SIZE = Math.min($('#center').width(), $('#center').height() - $('h1').eq(0).height() - $('#run').height()) - 10
     canvas = $('#wheel')
     canvas[0].width = SIZE
     canvas[0].height = SIZE
@@ -13,15 +13,14 @@ $(function() {
 
     $('#mask').hide()
     $('#popup').hide()
-    $('#disabled-choices').hide()
 
     populateGroups()
 
     $('#groups').change(function() {
         reloadGroup(function() {
-			setColors()
-			clearDisabled()
-		})
+            setColors()
+            clearDisabled()
+        })
     })
 
     $('#proportional').change(function() {
@@ -30,12 +29,11 @@ $(function() {
         updateGroup(reloadGroup)
     })
 
-    $('#twice-in-a-row').change(function(){
+    $('#twice-in-a-row').change(function() {
         updateGroup(reloadGroup)
     })
 
     $('#run').click(function() {
-        $('#disabled-choices').slideUp()
         run(selectChoice)
     })
 

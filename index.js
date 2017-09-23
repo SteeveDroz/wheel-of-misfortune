@@ -12,6 +12,7 @@ function createWindow() {
         width: 800,
         height: 600
     })
+    mainWindow.maximize()
 
     mainWindow.loadURL(`file://${__dirname}/resources/index.html`)
 

@@ -16,39 +16,40 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
-<body class="vertical">
-    <h1>The Wheel of Misfortune</h1>
-    <div class="horizontal blockable">
+<body>
+    <aside id="left">
         <select id="groups"></select>
-        <div class="vertical right">
-            <div class="horizontal small">
-                <label for="proportional">Proportional</label>
-                <input type="checkbox" name="proportional" id="proportional">
-            </div>
-            <div class="horizontal small">
-                <label for="twice-in-a-row">Twice in a row</label>
-                <input type="checkbox" name="twice-in-a-row" id="twice-in-a-row">
-            </div>
+        <div class="form-entry">
+            <label for="proportional">Proportional</label>
+            <input type="checkbox" name="proportional" id="proportional">
         </div>
-        <button id="run">Run</button>
-        <button id="disabled">Disabled</button>
-    </div>
-    <div id="disabled-choices" class="multi-column"></div>
-    <canvas id="wheel"></canvas>
-    <div class="horizontal blockable">
+        <div class="form-entry">
+            <label for="twice-in-a-row">Twice in a row</label>
+            <input type="checkbox" name="twice-in-a-row" id="twice-in-a-row">
+        </div>
+        <div class="space"></div>
         <button id="reset">Reset</button>
         <button id="add-group">Add group</button>
-        <button id="edit-group">Edit group</button>
-    </div>
-    <div id="mask">
-        <div id="popup">
-            <div id="popup-text">No one for now</div>
-            <div class="horizontal">
-                <button id="ok">OK</button>
-                <button id="cancel">Cancel</button>
+    </aside>
+
+    <article id="center">
+        <h1>The Wheel of Misfortune</h1>
+        <canvas id="wheel"></canvas>
+        <button id="run">Run</button>
+        <div id="mask">
+            <div id="popup">
+                <div id="popup-text">No one for now</div>
+                <div class="horizontal">
+                    <button id="ok">OK</button>
+                    <button id="cancel">Cancel</button>
+                </div>
             </div>
         </div>
-    </div>
+    </article>
+
+    <aside id="right">
+        <div id="disabled-choices"></div>
+    </aside>
 </body>
 
 </html>
