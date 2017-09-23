@@ -44,6 +44,8 @@ const addGroup = function() {
 }
 
 const editGroup = function() {
+    //TODO Do something
+    return
     let editName = $('#edit-group-name').val()
     const editChoices = $('#edit-group-choices')
         .val()
@@ -102,27 +104,41 @@ const editGroup = function() {
 
 const clearDisabled = function() {
     $('#disabled-choices').text('')
+    const table = $('<table>')
+    table.append('<thead><tr></tr><tr><td>Name</td><td>Points</td><td>Disabled</td></tr></thead><tbody></tbody>')
+    const title = $('<td>', {
+        contenteditable: true,
+        blur: editGroup,
+        colspan: 3,
+        text: group.group
+    })
+    table.find('thead').find('tr').eq(0).append(title)
+    $('#disabled-choices').append(table)
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
-        const line = $('<div>', {
-            css: {
-                display: 'flex',
-                flexDirection: 'row'
-            }
+
+        const name = $('<td>', {
+            contenteditable: true,
+            blur: editGroup
         })
-        line.append($('<input>', {
+        name.append(choice.name)
+
+        const points = $('<td>', {
+            contenteditable: true,
+            blur: editGroup
+        })
+        points.append(choice.points)
+
+        const disabled = $('<td>')
+        disabled.append($('<input>', {
             type: 'checkbox',
-            id: 'disable_' + i,
-            name: 'disable_' + i,
-            click: function() {
-                parts = calculateParts()
-                drawGroup()
-            }
+            change: editGroup
         }))
-        line.append($('<label>', {
-            for: 'disable_' + i,
-            text: choice.name
-        }))
-        $('#disabled-choices').append(line)
+
+        const row = $('<tr>')
+        row.append(name)
+        row.append(points)
+        row.append(disabled)
+        table.find('tbody').append(row)
     }
 }
