@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    font-family: Amaranth, sans-serif;
+}
+
 body {
     display: flex;
     flex-direction: row;
@@ -10,6 +15,7 @@ aside {
     background: lightgray;
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 
 #center {
@@ -19,12 +25,14 @@ aside {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
 }
 
 .form-entry {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .space {
@@ -43,6 +51,17 @@ input, select, button {
 input[type=checkbox] {
     transform: scale(1.5);
     margin: 5px;
+}
+
+button {
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+button.danger {
+    background: red;
 }
 
 #mask {
