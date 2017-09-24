@@ -46,9 +46,9 @@ const addGroup = function() {
 const editGroup = function() {
     const data = $('#disabled-choices table')
     const newGroup = {}
+    const oldName = group.group
 
     newGroup.group = data.find('thead').find('td').eq(0).text()
-    let rename = newGroup.group !== group.group
 
     newGroup.choices = []
     data.find('tbody tr').each(function(id, line) {
@@ -72,11 +72,12 @@ const editGroup = function() {
     group = newGroup
 
     updateGroup(function() {
-        //TODO Delete old file
-        populateGroups(function() {
-            $('#groups').val(newGroup.group)
-            reloadGroup()
-            clearDisabled()
+        deleteGroup(oldName, function() {
+            populateGroups(function() {
+                $('#groups').val(newGroup.group)
+                reloadGroup()
+                clearDisabled()
+            })
         })
     })
 }

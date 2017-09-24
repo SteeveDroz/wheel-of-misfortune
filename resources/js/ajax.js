@@ -42,3 +42,10 @@ const updateGroup = function(callback) {
         callback()
     }
 }
+
+const deleteGroup = function(name, callback) {
+    ipc.sendSync('delete-group', name)
+    if (callback != null) {
+        callback()
+    }
+}

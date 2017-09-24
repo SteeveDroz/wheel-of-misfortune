@@ -49,7 +49,7 @@ ipc.on('save-group', function(event, group) {
         fs.writeFileSync(`data/${group.group}.json`, JSON.stringify(group), 'utf-8');
         event.returnValue = null
     } catch (e) {
-        console.log('Failed to save the file !')
+        console.log('Failed to save the file!')
     }
 })
 
@@ -58,6 +58,15 @@ ipc.on('load-group', function(event, name) {
         const group = JSON.parse(fs.readFileSync(`data/${name}.json`, 'utf-8'));
         event.returnValue = group
     } catch (e) {
-        console.log('Failed to load the file !')
+        console.log('Failed to load the file!')
+    }
+})
+
+ipc.on('delete-group', function(event, name) {
+    try {
+        fs.unlinkSync(`data/${name}.json`)
+        event.returnValue = null
+    } catch (e) {
+        console.log('Failed to delete file!')
     }
 })
