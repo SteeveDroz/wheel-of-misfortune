@@ -57,7 +57,7 @@ const run = function(finished) {
     if (parts === undefined) {
         return
     }
-    $('.blockable *').prop('disabled', true)
+    $('button, select, input').prop('disabled', true)
     let speed = 0.3 * Math.random() + 0.2
     const slowDown = 0.001
     const timer = setInterval(function() {
@@ -66,7 +66,7 @@ const run = function(finished) {
         drawGroup()
         if (speed <= 0) {
             clearTimeout(timer)
-            $('.blockable *').prop('disabled', false)
+            $('button, select, input').prop('disabled', false)
             finished()
         }
     }, 1000 / 60)
