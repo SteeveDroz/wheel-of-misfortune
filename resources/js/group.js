@@ -53,7 +53,10 @@ const editGroup = function() {
     newGroup.choices = []
     data.find('tbody tr').each(function(id, line) {
         const name = $(line).find('td').eq(0).text()
-        const points = $(line).find('td').eq(1).text()
+
+        const pointsFromField = Number($(line).find('td').eq(1).text())
+        const points = isNaN(pointsFromField) ? 0 : pointsFromField
+
         const disabled = $(line).find('td').eq(2).find('input').prop('checked')
         if (name.trim() != '') {
             newGroup.choices.push({
@@ -72,13 +75,21 @@ const editGroup = function() {
     group = newGroup
 
     updateGroup(function() {
-        deleteGroup(oldName, function() {
+        if (oldName != group.group) {
+            deleteGroup(oldName, function() {
+                populateGroups(function() {
+                    $('#groups').val(newGroup.group)
+                    reloadGroup()
+                    clearDisabled()
+                })
+            })
+        } else {
             populateGroups(function() {
                 $('#groups').val(newGroup.group)
                 reloadGroup()
                 clearDisabled()
             })
-        })
+        }
     })
 }
 
@@ -122,4 +133,5 @@ const clearDisabled = function() {
         row.append(disabled)
         table.find('tbody').append(row)
     }
+    table.find('tbody').append('<tr><td contenteditable onblur="editGroup()"></td><td></td><td><input type="checkbox"></td></tr>')
 }
