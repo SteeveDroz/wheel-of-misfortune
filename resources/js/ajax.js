@@ -17,7 +17,7 @@ const populateGroups = function(callback) {
     if (data.length > 0) {
         reloadGroup(function() {
             setColors()
-            clearDisabled()
+            updateGroupDisplay()
         })
     }
 

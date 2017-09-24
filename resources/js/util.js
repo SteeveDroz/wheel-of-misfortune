@@ -1,7 +1,7 @@
 "use strict";
 
 const isDisabled = function(id) {
-    return $('#disabled-choices table tbody tr').eq(id).find('input').prop('checked')
+    return $('#group-display table tbody tr').eq(id).find('input').prop('checked')
 }
 
 const isTwiceInARow = function(id) {

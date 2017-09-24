@@ -19,13 +19,13 @@ $(function() {
     $('#groups').change(function() {
         reloadGroup(function() {
             setColors()
-            clearDisabled()
+            updateGroupDisplay()
         })
     })
 
     $('#proportional').change(function() {
         group.proportional = $(this).is(':checked')
-        clearDisabled()
+        updateGroupDisplay()
         updateGroup(reloadGroup)
     })
 
@@ -38,7 +38,7 @@ $(function() {
     })
 
     $('#disabled').click(function() {
-        $('#disabled-choices').slideToggle()
+        $('#group-display').slideToggle()
     })
 
     $('#reset').click(reset)

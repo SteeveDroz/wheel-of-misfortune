@@ -44,7 +44,7 @@ const addGroup = function() {
 }
 
 const editGroup = function() {
-    const data = $('#disabled-choices table')
+    const data = $('#group-display table')
     const newGroup = {}
     const oldName = group.name
 
@@ -80,21 +80,21 @@ const editGroup = function() {
                 populateGroups(function() {
                     $('#groups').val(newGroup.name)
                     reloadGroup()
-                    clearDisabled()
+                    updateGroupDisplay()
                 })
             })
         } else {
             populateGroups(function() {
                 $('#groups').val(newGroup.name)
                 reloadGroup()
-                clearDisabled()
+                updateGroupDisplay()
             })
         }
     })
 }
 
-const clearDisabled = function() {
-    $('#disabled-choices').text('')
+const updateGroupDisplay = function() {
+    $('#group-display').text('')
     const table = $('<table>')
     table.append('<thead><tr></tr><tr><td>Name</td><td>Points</td><td>Disabled</td></tr></thead><tbody></tbody>')
     const title = $('<td>', {
@@ -104,7 +104,7 @@ const clearDisabled = function() {
         text: group.name
     })
     table.find('thead').find('tr').eq(0).append(title)
-    $('#disabled-choices').append(table)
+    $('#group-display').append(table)
     for (let i = 0; i < group.choices.length; i++) {
         const choice = group.choices[i]
 
