@@ -44,60 +44,39 @@ const addGroup = function() {
 }
 
 const editGroup = function() {
-    //TODO Do something
-    return
-    let editName = $('#edit-group-name').val()
-    const editChoices = $('#edit-group-choices')
-        .val()
-        .split(/[\r\n]+/)
-        .map(function(element) {
-            element = element.trim()
-            return element.split(/\s*->\s*/)
-        })
-        .filter(function(element) {
-            if (element.length == 2) {
-                return element
-            }
-            return false
-        })
+    const data = $('#disabled-choices table')
+    const newGroup = {}
 
-    if (!editName) {
-        console.log('Name required')
-        return
-    }
-    if (editName != group.group) {
-        while ($('#groups').find(':contains(' + editName + ')').length > 0) {
-            editName += '_'
-        }
-    }
-    if (editChoices.length == 0) {
-        console.log('Non-empty lines required with syntax "name -> points"')
-        return
-    }
+    newGroup.group = data.find('thead').find('td').eq(0).text()
+    let rename = newGroup.group !== group.group
 
-    const editGroup = {}
-    editGroup.group = editName
-    editGroup.proportional = false
-    editGroup.choices = []
-    editChoices.forEach(function(choice) {
-        editGroup.choices.push({
-            name: choice[0],
-            points: choice[1]
-        })
-    })
-    editGroup.proportional = group.proportional
-
-    const oldName = group.group
-    group = editGroup
-    updateGroup(function() {
-        if (oldName != editName) {
-            $.post('php/delete.php', {
-                file: oldName
+    newGroup.choices = []
+    data.find('tbody tr').each(function(id, line) {
+        const name = $(line).find('td').eq(0).text()
+        const points = $(line).find('td').eq(1).text()
+        const disabled = $(line).find('td').eq(2).find('input').prop('checked')
+        if (name.trim() != '') {
+            newGroup.choices.push({
+                name: name,
+                points,
+                points,
+                disabled: disabled
             })
         }
+    })
+
+    newGroup.last = group.last
+
+    newGroup.proportional = group.proportional
+
+    group = newGroup
+
+    updateGroup(function() {
+        //TODO Delete old file
         populateGroups(function() {
-            $('#groups').val(editName)
-            reloadGroup(setColors)
+            $('#groups').val(newGroup.group)
+            reloadGroup()
+            clearDisabled()
         })
     })
 }
@@ -132,6 +111,7 @@ const clearDisabled = function() {
         const disabled = $('<td>')
         disabled.append($('<input>', {
             type: 'checkbox',
+            checked: choice.disabled,
             change: editGroup
         }))
 

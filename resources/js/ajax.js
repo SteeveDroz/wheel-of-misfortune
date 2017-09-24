@@ -27,7 +27,7 @@ const populateGroups = function(callback) {
 }
 
 const reloadGroup = function(callback) {
-    group = ipc.sendSync('load-group', $('#groups').val(), callback)
+    group = ipc.sendSync('load-group', $('#groups').val())
     if (callback != null) {
         callback()
     }
