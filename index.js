@@ -46,7 +46,7 @@ ipc.on('populate-groups', function(event) {
 
 ipc.on('save-group', function(event, group) {
     try {
-        fs.writeFileSync(`data/${group.group}.json`, JSON.stringify(group), 'utf-8');
+        fs.writeFileSync(`data/${group.name}.json`, JSON.stringify(group), 'utf-8');
         event.returnValue = null
     } catch (e) {
         console.log('Failed to save the file!')

@@ -25,7 +25,7 @@ const addGroup = function() {
     }
 
     const newGroup = {}
-    newGroup.group = newName
+    newGroup.name = newName
     newGroup.proportional = false
     newGroup.choices = []
     newChoices.forEach(function(choice) {
@@ -46,9 +46,9 @@ const addGroup = function() {
 const editGroup = function() {
     const data = $('#disabled-choices table')
     const newGroup = {}
-    const oldName = group.group
+    const oldName = group.name
 
-    newGroup.group = data.find('thead').find('td').eq(0).text()
+    newGroup.name = data.find('thead').find('td').eq(0).text()
 
     newGroup.choices = []
     data.find('tbody tr').each(function(id, line) {
@@ -75,17 +75,17 @@ const editGroup = function() {
     group = newGroup
 
     updateGroup(function() {
-        if (oldName != group.group) {
+        if (oldName != group.name) {
             deleteGroup(oldName, function() {
                 populateGroups(function() {
-                    $('#groups').val(newGroup.group)
+                    $('#groups').val(newGroup.name)
                     reloadGroup()
                     clearDisabled()
                 })
             })
         } else {
             populateGroups(function() {
-                $('#groups').val(newGroup.group)
+                $('#groups').val(newGroup.name)
                 reloadGroup()
                 clearDisabled()
             })
@@ -101,7 +101,7 @@ const clearDisabled = function() {
         contenteditable: true,
         blur: editGroup,
         colspan: 3,
-        text: group.group
+        text: group.name
     })
     table.find('thead').find('tr').eq(0).append(title)
     $('#disabled-choices').append(table)

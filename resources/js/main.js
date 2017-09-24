@@ -50,6 +50,6 @@ $(function() {
         const choiceLines = group.choices.map(function(choice) {
             return choice.name + ' -> ' + choice.points
         })
-        openPopup('Edit group<input id="edit-group-name" placeholder="Group name" value="' + group.group + '"><textarea id="edit-group-choices" rows="20" placeholder="Choices, each on a new line">' + choiceLines.join('\n') + '</textarea>', editGroup)
+        openPopup('Edit group<input id="edit-group-name" placeholder="Group name" value="' + group.name + '"><textarea id="edit-group-choices" rows="20" placeholder="Choices, each on a new line">' + choiceLines.join('\n') + '</textarea>', editGroup)
     })
 })
