@@ -3,7 +3,11 @@
 $(function() {
     new Promise(function(resolve, reject) {
         setTimeout(resolve, 1000)
-    }).then(redraw).then(populateGroups).then()
+    }).then(redraw).then(populateGroups).then(function() {
+        if (group === undefined) {
+            addGroupPopup()
+        }
+    })
     $('#mask').hide()
     $('#popup').hide()
 
@@ -73,7 +77,8 @@ const deleteGroupPopup = function() {
         return deleteGroup($('#groups').val())
     }).then(populateGroups).then(reloadGroup).then(drawGroup).catch(function() {
         group = undefined
-        redraw()
-        updateGroupDisplay()
+        redraw().then(updateGroupDisplay).then(function() {
+            setTimeout(addGroupPopup, 1000)
+        })
     })
 }
