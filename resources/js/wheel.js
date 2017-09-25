@@ -90,7 +90,7 @@ const selectChoice = function() {
             selected = part
         }
     })
-    openPopup(selected).then(function() {
+    openPopup(selected).catch(nothing).then(function() {
         if (selected !== undefined) {
             group.choices.forEach(function(choice) {
                 if (choice.name == selected) {

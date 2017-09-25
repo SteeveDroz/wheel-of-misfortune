@@ -144,3 +144,5 @@ const getRainbowColor = function(n, total) {
 const removeFileType = function(fileName) {
     return fileName.split('.').slice(0, -1).join('.')
 }
+
+const nothing = function() {}
