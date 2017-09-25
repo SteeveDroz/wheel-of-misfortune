@@ -17,12 +17,25 @@ const template = [{
             }
         },
         {
-            label: 'Add group'
+            label: 'Add group',
+            click: function() {
+                addGroupPopup()
+            }
         },
         {
-            label: 'Reset'
+            label: 'Reset',
+            click: function() {
+                reset()
+            }
         }
     ]
+}, {
+    label: 'Dev',
+    submenu: [{
+        role: 'toggledevtools'
+    }, {
+        role: 'reload'
+    }]
 }]
 
 const menu = Menu.buildFromTemplate(template)
