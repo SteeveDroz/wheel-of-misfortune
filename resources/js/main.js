@@ -64,16 +64,16 @@ $('#delete-group').click(function() {
 })
 
 const resetPopup = function() {
-    openPopup('Are you sure you want to reset?').then(reset).then(updateGroup).then(reloadGroup).then(drawGroup)
+    openPopup('Reset', 'Are you sure you want to reset?').then(reset).then(updateGroup).then(reloadGroup).then(drawGroup)
         .then(updateGroupDisplay).catch(nothing)
 }
 
 const addGroupPopup = function() {
-    openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>').then(addGroup).catch(nothing)
+    openPopup('Add a group', '<input id="new-group-name" placeholder="Group name" size="50"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>').then(addGroup).catch(nothing)
 }
 
 const deleteGroupPopup = function() {
-    openPopup('Are you sure you want to delete the group ' + $('#groups').val() + '?').then(function() {
+    openPopup('Delete the group', 'Are you sure you want to delete the group "' + $('#groups').val() + '"?').then(function() {
         return deleteGroup($('#groups').val())
     }).catch(nothing).then(populateGroups).then(reloadGroup).then(drawGroup).catch(function() {
         group = undefined

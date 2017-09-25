@@ -1,8 +1,9 @@
 "use strict";
 
-const openPopup = function(content) {
+const openPopup = function(title, content) {
     return new Promise(function(resolve, reject) {
-        $('#popup-text').html(content)
+        $('#popup-title').text(title)
+        $('#popup-content').html(content)
         $('#mask').fadeIn()
         $('#popup').fadeIn()
         $('#ok').unbind('click')
@@ -20,7 +21,7 @@ const openPopup = function(content) {
 
 const closePopup = function() {
     $('#popup').fadeOut(400, function() {
-        $('#popup-text').text('')
+        $('#popup-content').text('')
     })
     $('#mask').fadeOut()
 }

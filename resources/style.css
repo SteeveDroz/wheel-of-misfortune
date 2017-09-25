@@ -93,16 +93,23 @@ button.danger {
     display: flex;
     flex-direction: column;
     left: 50%;
-    max-width: 300px;
+    max-width: 500px;
     padding: 50px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
-#popup-text {
+#popup-title {
     font-size: 30pt;
     text-align: center;
+}
+
+#popup-content {
+    font-size: 20pt;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #popup input, #popup textarea {
