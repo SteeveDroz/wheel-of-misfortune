@@ -16,9 +16,7 @@ const addGroup = function() {
         console.log('Name required')
         return
     }
-    while ($('#groups').find(':contains(' + newName + ')').length > 0) {
-        newName += '_'
-    }
+    newName = createGroupName(newName)
     if (newChoices.length == 0) {
         console.log('Non-empty lines required')
         return
@@ -40,12 +38,24 @@ const addGroup = function() {
     }).then(reloadGroup).then(setColors).then(drawGroup)
 }
 
+const createGroupName = function(name) {
+    while ($('#groups').find('option').filter(function() {
+            return $(this).val() == name
+        }).length > 0) {
+        name += '_'
+    }
+    return name
+}
+
 const editGroup = function() {
     const data = $('#group-display table')
     const newGroup = {}
     const oldName = group.name
-
-    newGroup.name = data.find('thead').find('td').eq(0).text()
+    const newName = data.find('thead').find('td').eq(0).text().trim()
+    $('#groups option').filter(function() {
+        return $(this).val() == oldName
+    }).remove()
+    newGroup.name = createGroupName(newName)
 
     newGroup.choices = []
     data.find('tbody tr').each(function(id, line) {
