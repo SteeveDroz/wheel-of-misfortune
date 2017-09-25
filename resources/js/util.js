@@ -73,10 +73,6 @@ const getProportion = function(value, min) {
     return 1 / Math.pow(2, value - min + 1)
 }
 
-const getRandomBrightColor = function() {
-    return rgb2Color(hsv2Rgb(2 * Math.PI * Math.random(), 1, 1))
-}
-
 const hsv2Rgb = function(h, s, v) {
     if (arguments.length == 1) {
         v = h.v

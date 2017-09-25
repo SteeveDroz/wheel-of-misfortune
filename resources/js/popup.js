@@ -24,15 +24,3 @@ const closePopup = function() {
     })
     $('#mask').fadeOut()
 }
-
-const reset = function() {
-    openPopup('Are you sure you want to reset?').then(confirmReset).then(updateGroupDisplay)
-}
-
-const confirmReset = function() {
-    group.choices.forEach(function(choice) {
-        choice.points = 0
-    })
-    group.last = undefined
-    updateGroup().then(reloadGroup).then(drawGroup)
-}

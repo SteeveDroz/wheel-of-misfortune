@@ -47,7 +47,7 @@ $('#disabled').click(function() {
 })
 
 $('#reset').click(function() {
-    reset()
+    resetPopup()
 })
 
 $('#add-group').click(function() {
@@ -57,6 +57,11 @@ $('#add-group').click(function() {
 $('#delete-group').click(function() {
     deleteGroupPopup()
 })
+
+const resetPopup = function() {
+    openPopup('Are you sure you want to reset?').then(reset).then(updateGroup).then(reloadGroup).then(drawGroup)
+        .then(updateGroupDisplay)
+}
 
 const addGroupPopup = function() {
     openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>').then(addGroup)

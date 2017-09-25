@@ -132,3 +132,10 @@ const updateGroupDisplay = function() {
     }
     table.find('tbody').append('<tr><td contenteditable onblur="editGroup()"></td><td></td><td><input type="checkbox"></td></tr>')
 }
+
+const reset = function() {
+    group.choices.forEach(function(choice) {
+        choice.points = 0
+    })
+    group.last = undefined
+}
