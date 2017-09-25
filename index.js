@@ -21,6 +21,16 @@ function createWindow() {
     mainWindow.on('closed', function() {
         mainWindow = null
     })
+
+    mainWindow.on('resize', function() {
+        mainWindow.webContents.send('resize')
+    })
+    mainWindow.on('maximize', function() {
+        mainWindow.webContents.send('resize')
+    })
+    mainWindow.on('unmaximize', function() {
+        mainWindow.webContents.send('resize')
+    })
 }
 
 app.on('ready', createWindow)

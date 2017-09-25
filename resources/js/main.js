@@ -1,25 +1,32 @@
 "use strict";
 
 $(function() {
-    SIZE = Math.min($('#center').width(), $('#center').height() - $('h1').eq(0).height() - $('#run').height()) - 10
-    canvas = $('#wheel')
-    canvas[0].width = SIZE
-    canvas[0].height = SIZE
-    wheel = canvas[0].getContext('2d')
-
-    wheel.beginPath()
-    wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 50, 0, 2 * Math.PI, false)
-    wheel.fill()
-
+    new Promise(function(resolve, reject) {
+        setTimeout(resolve, 1000)
+    }).then(resize).then(populateGroups).then()
     $('#mask').hide()
     $('#popup').hide()
-
-    populateGroups().then()
 
     $('#groups').change(function() {
         reloadGroup().then(setColors).then(drawGroup).then(updateGroupDisplay)
     })
 })
+
+const resize = function() {
+    return new Promise(function(resolve, reject) {
+        SIZE = Math.min($('#center').width(), $('#center').height() - $('h1').eq(0).height() - $('#run').height()) - 10
+
+        canvas = $('#wheel')
+        canvas[0].width = SIZE
+        canvas[0].height = SIZE
+        wheel = canvas[0].getContext('2d')
+
+        wheel.beginPath()
+        wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 50, 0, 2 * Math.PI, false)
+        wheel.fill()
+        resolve()
+    })
+}
 
 $('#proportional').change(function() {
     group.proportional = $(this).is(':checked')
