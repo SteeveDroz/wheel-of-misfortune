@@ -122,17 +122,17 @@ const percent2Hex = function(percent) {
     const value = 16 * percent
     if (value < 0) {
         return undefined
-    } else if (value <= 10) {
+    } else if (value < 10) {
         return Math.floor(value)
-    } else if (value <= 11) {
+    } else if (value < 11) {
         return 'A'
-    } else if (value <= 12) {
+    } else if (value < 12) {
         return 'B'
-    } else if (value <= 13) {
+    } else if (value < 13) {
         return 'C'
-    } else if (value <= 14) {
+    } else if (value < 14) {
         return 'D'
-    } else if (value <= 15) {
+    } else if (value < 15) {
         return 'E'
     } else if (value <= 16) {
         return 'F'
