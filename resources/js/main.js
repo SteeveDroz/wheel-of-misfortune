@@ -54,6 +54,16 @@ $('#add-group').click(function() {
     addGroupPopup()
 })
 
+$('#delete-group').click(function() {
+    deleteGroupPopup()
+})
+
 const addGroupPopup = function() {
     openPopup('Add a group<input id="new-group-name" placeholder="Group name"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>').then(addGroup)
+}
+
+const deleteGroupPopup = function() {
+    openPopup('Are you sure you want to delete the group ' + $('#groups').val() + '?').then(function() {
+        deleteGroup($('#groups').val())
+    }).then(populateGroups).then(reloadGroup)
 }

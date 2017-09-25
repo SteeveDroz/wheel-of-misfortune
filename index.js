@@ -5,6 +5,8 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const ipc = electron.ipcMain
 
+const dataDir = `${__dirname}/data`
+
 let mainWindow
 
 function createWindow() {
@@ -32,6 +34,10 @@ function createWindow() {
     mainWindow.on('unmaximize', function() {
         mainWindow.webContents.send('resize')
     })
+
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir)
+    }
 }
 
 app.on('ready', createWindow)
@@ -50,7 +56,7 @@ app.on('activate', function() {
 
 ipc.on('populate-groups', function(event) {
     try {
-        const files = fs.readdirSync('data').filter(function(file) {
+        const files = fs.readdirSync(`${dataDir}`).filter(function(file) {
             return file.endsWith('.json')
         })
         event.returnValue = files
@@ -64,7 +70,7 @@ ipc.on('populate-groups', function(event) {
 
 ipc.on('save-group', function(event, group) {
     try {
-        fs.writeFileSync(`data/${group.name}.json`, JSON.stringify(group), 'utf-8');
+        fs.writeFileSync(`${dataDir}/${group.name}.json`, JSON.stringify(group), 'utf-8');
         event.returnValue = null
     } catch (e) {
         console.log('Failed to save the file!')
@@ -76,7 +82,7 @@ ipc.on('save-group', function(event, group) {
 
 ipc.on('load-group', function(event, name) {
     try {
-        const group = JSON.parse(fs.readFileSync(`data/${name}.json`, 'utf-8'));
+        const group = JSON.parse(fs.readFileSync(`${dataDir}/${name}.json`, 'utf-8'));
         event.returnValue = group
     } catch (e) {
         console.log('Failed to load the file!')
@@ -88,7 +94,7 @@ ipc.on('load-group', function(event, name) {
 
 ipc.on('delete-group', function(event, name) {
     try {
-        fs.unlinkSync(`data/${name}.json`)
+        fs.unlinkSync(`${dataDir}/${name}.json`)
         event.returnValue = null
     } catch (e) {
         console.log('Failed to delete the file!')
