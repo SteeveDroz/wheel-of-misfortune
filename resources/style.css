@@ -93,7 +93,8 @@ button.danger {
     display: flex;
     flex-direction: column;
     left: 50%;
-    max-width: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
     padding: 50px;
     position: absolute;
     top: 50%;
@@ -110,6 +111,7 @@ button.danger {
     text-align: center;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 #popup input, #popup textarea {

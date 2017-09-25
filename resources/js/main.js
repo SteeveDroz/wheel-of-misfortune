@@ -82,3 +82,7 @@ const deleteGroupPopup = function() {
         })
     })
 }
+
+const about = function() {
+    openPopup('About', `<div style="margin-bottom:30px">The Wheel of Misfortune, v${require('../package.json').version}</div><div id="license" style="white-space: pre-wrap;width:75vw;"></div><script>$('#license').load('../LICENSE')</script>`).catch(nothing).then(nothing)
+}
