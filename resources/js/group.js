@@ -35,12 +35,9 @@ const addGroup = function() {
         })
     })
     group = newGroup
-    updateGroup(function() {
-        populateGroups(function() {
-            $('#groups').val(newName)
-            reloadGroup(setColors)
-        })
-    })
+    updateGroup().then(populateGroups).then(function() {
+        $('#groups').val(newName)
+    }).then(reloadGroup).then(setColors).then(drawGroup)
 }
 
 const editGroup = function() {
@@ -74,23 +71,13 @@ const editGroup = function() {
 
     group = newGroup
 
-    updateGroup(function() {
+    updateGroup().then(function() {
         if (oldName != group.name) {
-            deleteGroup(oldName, function() {
-                populateGroups(function() {
-                    $('#groups').val(newGroup.name)
-                    reloadGroup()
-                    updateGroupDisplay()
-                })
-            })
-        } else {
-            populateGroups(function() {
-                $('#groups').val(newGroup.name)
-                reloadGroup()
-                updateGroupDisplay()
-            })
+            deleteGroup(oldName)
         }
-    })
+    }).then(populateGroups).then(function() {
+        $('#groups').val(newGroup.name)
+    }).then(reloadGroup).then(updateGroupDisplay).then(drawGroup)
 }
 
 const updateGroupDisplay = function() {

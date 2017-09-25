@@ -38,10 +38,17 @@ app.on('activate', function() {
 })
 
 ipc.on('populate-groups', function(event) {
-    const files = fs.readdirSync('data').filter(function(file) {
-        return file.endsWith('.json')
-    })
-    event.returnValue = files
+    try {
+        const files = fs.readdirSync('data').filter(function(file) {
+            return file.endsWith('.json')
+        })
+        event.returnValue = files
+    } catch (e) {
+        console.log('Failed to load the list of groups')
+        event.returnValue = {
+            error: 'Failed to load the list of groups'
+        }
+    }
 })
 
 ipc.on('save-group', function(event, group) {
@@ -50,6 +57,9 @@ ipc.on('save-group', function(event, group) {
         event.returnValue = null
     } catch (e) {
         console.log('Failed to save the file!')
+        event.returnValue = {
+            error: 'Failed to save the file!'
+        }
     }
 })
 
@@ -59,6 +69,9 @@ ipc.on('load-group', function(event, name) {
         event.returnValue = group
     } catch (e) {
         console.log('Failed to load the file!')
+        event.returnValue = {
+            error: 'Failed to load the file!'
+        }
     }
 })
 
@@ -67,6 +80,9 @@ ipc.on('delete-group', function(event, name) {
         fs.unlinkSync(`data/${name}.json`)
         event.returnValue = null
     } catch (e) {
-        console.log('Failed to delete file!')
+        console.log('Failed to delete the file!')
+        event.returnValue = {
+            error: 'Failed to delete the file!'
+        }
     }
 })

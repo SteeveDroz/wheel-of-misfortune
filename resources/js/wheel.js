@@ -53,23 +53,25 @@ const setColors = function() {
     }
 }
 
-const run = function(finished) {
-    if (parts === undefined) {
-        return
-    }
-    $('button, select, input').prop('disabled', true)
-    let speed = 0.3 * Math.random() + 0.2
-    const slowDown = 0.001
-    const timer = setInterval(function() {
-        angle += speed
-        speed -= slowDown
-        drawGroup()
-        if (speed <= 0) {
-            clearTimeout(timer)
-            $('button, select, input').prop('disabled', false)
-            finished()
+const run = function() {
+    return new Promise(function(resolve, reject) {
+        if (parts === undefined) {
+            return
         }
-    }, 1000 / 60)
+        $('button, select, input').prop('disabled', true)
+        let speed = 0.3 * Math.random() + 0.2
+        const slowDown = 0.001
+        const timer = setInterval(function() {
+            angle += speed
+            speed -= slowDown
+            drawGroup()
+            if (speed <= 0) {
+                clearTimeout(timer)
+                $('button, select, input').prop('disabled', false)
+                resolve()
+            }
+        }, 1000 / 60)
+    })
 }
 
 const selectChoice = function() {
@@ -85,7 +87,7 @@ const selectChoice = function() {
             selected = part
         }
     })
-    openPopup(selected, function() {
+    openPopup(selected).then(function() {
         if (selected !== undefined) {
             group.choices.forEach(function(choice) {
                 if (choice.name == selected) {
@@ -93,7 +95,6 @@ const selectChoice = function() {
                     choice.points++
                 }
             })
-            updateGroup(reloadGroup)
         }
-    })
+    }).then(updateGroup).then(reloadGroup).then(drawGroup).then(updateGroupDisplay)
 }

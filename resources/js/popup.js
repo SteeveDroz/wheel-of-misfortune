@@ -1,16 +1,21 @@
 "use strict";
 
-const openPopup = function(content, callback) {
-    $('#popup-text').html(content)
-    $('#mask').fadeIn()
-    $('#popup').fadeIn()
-    $('#ok').unbind('click')
-    $('#ok').click(function() {
-        callback()
-        closePopup()
+const openPopup = function(content) {
+    return new Promise(function(resolve, reject) {
+        $('#popup-text').html(content)
+        $('#mask').fadeIn()
+        $('#popup').fadeIn()
+        $('#ok').unbind('click')
+        $('#ok').click(function() {
+            resolve()
+            closePopup()
+        })
+        $('#cancel').unbind('click')
+        $('#cancel').click(function() {
+            closePopup()
+            reject()
+        })
     })
-    $('#cancel').unbind('click')
-    $('#cancel').click(closePopup)
 }
 
 const closePopup = function() {
@@ -21,7 +26,7 @@ const closePopup = function() {
 }
 
 const reset = function() {
-    openPopup('Are you sure you want to reset?', confirmReset)
+    openPopup('Are you sure you want to reset?').then(confirmReset).then(updateGroupDisplay)
 }
 
 const confirmReset = function() {
@@ -29,5 +34,5 @@ const confirmReset = function() {
         choice.points = 0
     })
     group.last = undefined
-    updateGroup(reloadGroup)
+    updateGroup().then(reloadGroup).then(drawGroup)
 }
