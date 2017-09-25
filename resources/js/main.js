@@ -3,7 +3,7 @@
 $(function() {
     new Promise(function(resolve, reject) {
         setTimeout(resolve, 1000)
-    }).then(resize).then(populateGroups).then()
+    }).then(redraw).then(populateGroups).then()
     $('#mask').hide()
     $('#popup').hide()
 
@@ -12,7 +12,7 @@ $(function() {
     })
 })
 
-const resize = function() {
+const redraw = function() {
     return new Promise(function(resolve, reject) {
         SIZE = Math.min($('#center').width(), $('#center').height() - $('h1').eq(0).height() - $('#run').height()) - 10
 
@@ -21,6 +21,7 @@ const resize = function() {
         canvas[0].height = SIZE
         wheel = canvas[0].getContext('2d')
 
+        wheel.clearRect(0, 0, SIZE, SIZE)
         wheel.beginPath()
         wheel.arc(SIZE / 2, SIZE / 2, SIZE / 2 - 50, 0, 2 * Math.PI, false)
         wheel.fill()
@@ -69,6 +70,10 @@ const addGroupPopup = function() {
 
 const deleteGroupPopup = function() {
     openPopup('Are you sure you want to delete the group ' + $('#groups').val() + '?').then(function() {
-        deleteGroup($('#groups').val())
-    }).then(populateGroups).then(reloadGroup)
+        return deleteGroup($('#groups').val())
+    }).then(populateGroups).then(reloadGroup).then(drawGroup).catch(function() {
+        group = undefined
+        redraw()
+        updateGroupDisplay()
+    })
 }

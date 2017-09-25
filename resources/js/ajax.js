@@ -65,5 +65,5 @@ const deleteGroup = function(name) {
 ipc.on('resize', function() {
     new Promise(function(resolve, reject) {
         setTimeout(resolve, 100)
-    }).then(resize).then(drawGroup)
+    }).then(redraw).then(drawGroup)
 })

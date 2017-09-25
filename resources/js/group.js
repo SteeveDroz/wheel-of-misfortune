@@ -92,6 +92,9 @@ const editGroup = function() {
 
 const updateGroupDisplay = function() {
     $('#group-display').text('')
+    if (group === undefined) {
+        return
+    }
     const table = $('<table>')
     table.append('<thead><tr></tr><tr><td>Name</td><td>Points</td><td>Disabled</td></tr></thead><tbody></tbody>')
     const title = $('<td>', {
