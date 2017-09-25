@@ -64,6 +64,18 @@ button.danger {
     background: red;
 }
 
+#group-display table {
+    text-align: center;
+}
+
+[contenteditable] {
+    border: 1px solid transparent;
+}
+
+[contenteditable]:hover {
+    border: 1px solid green;
+}
+
 #mask {
     background: rgba(0, 0, 0, 0.3);
     bottom: 0;
