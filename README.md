@@ -119,9 +119,9 @@ You want to translate this application in another language? It's quite easy actu
 
 1. Browse to the directory where the application is installed.
 2. Open the subdirectory `resources/app/i18n`.
-3. Copy `en.json` (or another existing file that corresponds to a language you know better) and name it with the [ISO 639-1 code](https://en.wikipedia.com/wiki/List_of_ISO_639-1_codes) of your language.
+3. Copy `en.json` (or another existing file that corresponds to a language you know better) and name it with the [ISO 639-1 code](http://en.wikipedia.com/wiki/List_of_ISO_639-1_codes) of your language.
 4. Open that new file and translate all the texts **after the colons (:)**. Changing the texts before the colons will break the translation of the app.
-5. *(Optional but nice of you)* Post the new file content as an [issue](https://github.com/SteeveDroz/wheel-of-fortune/issues) in this repository. It will be added for the whole community.
+5. *(Optional but nice of you)* Post the new file content as an [issue](https://github.com/SteeveDroz/wheel-of-misfortune/issues) in this repository. It will be added for the whole community.
 
 ## For developers
 
