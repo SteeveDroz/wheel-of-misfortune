@@ -10,6 +10,8 @@ $(function() {
     }).then(redraw).then(populateGroups).then(function() {
         if (group === undefined) {
             addGroupPopup()
+            $('#run').prop('disabled', true)
+            setMenu(true)
         }
     }).then(nothing)
     $('#mask').hide()
@@ -102,7 +104,9 @@ const addGroupPopup = function() {
         placeholder: i18n.__('Choices, each on a new line'),
         keyup: enableOk
     }))
-    openPopup(i18n.__('Add a group'), groupForm).then(addGroup).catch(nothing)
+    openPopup(i18n.__('Add a group'), groupForm).then(addGroup).then(function() {
+        setMenu(false)
+    }).catch(nothing)
 }
 
 const deleteGroupPopup = function() {
@@ -114,6 +118,8 @@ const deleteGroupPopup = function() {
         group = undefined
         redraw().then(updateGroupDisplay).then(function() {
             setTimeout(addGroupPopup, 1000)
+            $('#run').prop('disabled', true)
+            setMenu(true)
         })
     })
 }
