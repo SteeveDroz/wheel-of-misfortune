@@ -47,16 +47,6 @@ const template = [{
         ]
     },
     {
-        label: 'Dev',
-        submenu: [{
-                role: 'toggledevtools'
-            },
-            {
-                role: 'reload'
-            }
-        ]
-    },
-    {
         label: i18n.__('Options'),
         submenu: [{
             label: i18n.__('Change language'),
@@ -69,12 +59,25 @@ const template = [{
                 about()
             }
         }]
+    },
+    {
+        label: 'Dev',
+        submenu: [{
+                role: 'toggledevtools'
+            },
+            {
+                role: 'reload'
+            }
+        ]
     }
 ]
 
 const setMenu = function(disableActions) {
     return new Promise(function(resolve, reject) {
         const editedTemplate = Object.values($.extend(true, {}, template))
+        if (!debug) {
+            editedTemplate.splice(3, 1)
+        }
         if (disableActions) {
             editedTemplate.splice(1, 1)
         }
