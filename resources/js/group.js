@@ -100,6 +100,13 @@ const editGroup = function() {
 }
 
 const updateGroupDisplay = function() {
+    const validateWithEnter = function(event) {
+        if (event.which == 13) {
+            event.preventDefault()
+            $(this).blur()
+        }
+    }
+
     $('#group-display').text('')
     if (group === undefined) {
         return
@@ -108,9 +115,10 @@ const updateGroupDisplay = function() {
     table.append(`<thead><tr></tr><tr><td>${i18n.__('Name')}</td><td>${i18n.__('Points')}</td><td>${i18n.__('Disabled')}</td></tr></thead><tbody></tbody>`)
     const title = $('<td>', {
         contenteditable: true,
-        blur: editGroup,
         colspan: 3,
-        text: group.name
+        text: group.name,
+        blur: editGroup,
+        keydown: validateWithEnter
     })
     table.find('thead').find('tr').eq(0).append(title)
     $('#group-display').append(table)
@@ -119,13 +127,15 @@ const updateGroupDisplay = function() {
 
         const name = $('<td>', {
             contenteditable: true,
-            blur: editGroup
+            blur: editGroup,
+            keydown: validateWithEnter
         })
         name.append(choice.name)
 
         const points = $('<td>', {
             contenteditable: true,
-            blur: editGroup
+            blur: editGroup,
+            keydown: validateWithEnter
         })
         points.append(choice.points)
 
@@ -142,7 +152,15 @@ const updateGroupDisplay = function() {
         row.append(disabled)
         table.find('tbody').append(row)
     }
-    table.find('tbody').append('<tr><td contenteditable onblur="editGroup()"></td><td></td><td><input type="checkbox"></td></tr>')
+
+    const row = $('<tr>')
+    row.append($('<td>', {
+        contenteditable: true,
+        blur: editGroup,
+        keydown: validateWithEnter
+    }))
+    row.append('<td>-</td><td><input type="checkbox" disabled></td>')
+    table.find('tbody').append(row)
 }
 
 const reset = function() {
