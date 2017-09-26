@@ -91,7 +91,7 @@ const selectChoice = function() {
             selected = part
         }
     })
-    openPopup(i18n.__('Selected'), selected).catch(nothing).then(function() {
+    openPopup(i18n.__('Selected'), selected).then(function() {
         if (selected !== undefined) {
             group.choices.forEach(function(choice) {
                 if (choice.name == selected) {
@@ -100,5 +100,5 @@ const selectChoice = function() {
                 }
             })
         }
-    }).then(updateGroup).then(reloadGroup).then(drawGroup).then(updateGroupDisplay)
+    }).then(updateGroup).then(reloadGroup).then(drawGroup).then(updateGroupDisplay).catch(nothing)
 }

@@ -64,5 +64,5 @@ const changeLanguage = function() {
         })
         buttons.append(button)
     })
-    openPopup(i18n.__('Change language'), buttons).catch(nothing).then(relaunch).then(nothing)
+    openPopup(i18n.__('Change language'), buttons).then(relaunch).then(nothing).catch(nothing)
 }
