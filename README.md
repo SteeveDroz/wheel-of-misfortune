@@ -140,9 +140,10 @@ You want to compile from source?
 3. Open a terminal or a console in the project directory.
 4. Type `npm install`.
 5. Type `npm run package-win`, `npm run package-mac`, or `npm run package-linux` according to your OS.
-6. Alternatively, create your own `electron-packager` script.
+6. Alternatively, create your own `electron-packager` script*.
 7. Your application will be in `release-builds/wheel-of-misfortune-[OS]-[ARCH]/`
 
+*Note:* if you create your own `electron-packager` script, it can't use `--asar=true`, because the app needs to read and edit the resource folder.
 ## License
 
 This project is licensed under the excellent [MIT License](LICENSE).
