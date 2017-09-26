@@ -10,7 +10,6 @@ const fetchLocale = function() {
         if (locale !== null && locale.error !== undefined) {
             reject()
         } else {
-            console.log('SET LOCALE TO ' + locale);
             i18n.setLocale(locale)
             resolve()
         }
@@ -19,7 +18,6 @@ const fetchLocale = function() {
 
 const translate = function() {
     return new Promise(function(resolve, reject) {
-        console.log('TRANSLATE TO ' + i18n.getLocale());
         const elements = []
         addAllToArray($('head title'), elements)
         addAllToArray($('label'), elements)

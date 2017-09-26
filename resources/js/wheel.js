@@ -7,6 +7,7 @@ const drawGroup = function() {
     if (parts === undefined) {
         return
     }
+
     Object.keys(parts).forEach(function(name) {
         if (parts[name] == 0) {
             color = (color + 1) % colors.length

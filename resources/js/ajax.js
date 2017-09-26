@@ -29,11 +29,21 @@ const populateGroups = function() {
 
 const reloadGroup = function() {
     return new Promise(function(resolve, reject) {
-        group = ipc.sendSync('load-group', $('#groups').val())
-        if (group !== null && group.error !== undefined) {
+        const data = ipc.sendSync('load-group', $('#groups').val())
+        if (data !== null && data.error !== undefined) {
             reject()
             return
         }
+        group = JSON.parse(JSON.stringify(data))
+        group.choices = []
+        const choicesNames = []
+        data.choices.forEach(function(choice) {
+            while (choicesNames.includes(choice.name)) {
+                choice.name += '_'
+            }
+            choicesNames.push(choice.name)
+            group.choices.push(choice)
+        })
         resolve()
         $('#proportional').prop('checked', group.proportional)
         parts = calculateParts()
