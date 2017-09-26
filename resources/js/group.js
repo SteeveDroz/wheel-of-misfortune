@@ -96,7 +96,7 @@ const updateGroupDisplay = function() {
         return
     }
     const table = $('<table>')
-    table.append('<thead><tr></tr><tr><td>Name</td><td>Points</td><td>Disabled</td></tr></thead><tbody></tbody>')
+    table.append(`<thead><tr></tr><tr><td>${i18n.__('Name')}</td><td>${i18n.__('Points')}</td><td>${i18n.__('Disabled')}</td></tr></thead><tbody></tbody>`)
     const title = $('<td>', {
         contenteditable: true,
         blur: editGroup,

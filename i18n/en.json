@@ -21,5 +21,8 @@
     "Are you sure you want to reset?": "Are you sure you want to reset?",
     "Delete the group": "Delete the group",
     "Are you sure you want to delete the group \"{{groupName}}\"?": "Are you sure you want to delete the group \"{{groupName}}\"?",
-    "Selected": "Selected"
+    "Selected": "Selected",
+    "Name": "Name",
+    "Points": "Points",
+    "Disabled": "Disabled"
 }
