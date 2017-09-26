@@ -1,13 +1,15 @@
 "use strict";
 
 $(function() {
-    new Promise(function(resolve, reject) {
-        setTimeout(resolve, 1000)
+    fetchLocale().then(translate).then(function() {
+        return new Promise(function(resolve, reject) {
+            setTimeout(resolve, 1000)
+        })
     }).then(redraw).then(populateGroups).then(function() {
         if (group === undefined) {
             addGroupPopup()
         }
-    }).then(fetchLocale).then(translate).then(nothing)
+    }).then(nothing)
     $('#mask').hide()
     $('#popup').hide()
 
