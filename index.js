@@ -38,6 +38,7 @@ function createWindow() {
     if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir)
     }
+
 }
 
 app.on('ready', createWindow)
@@ -103,3 +104,61 @@ ipc.on('delete-group', function(event, name) {
         }
     }
 })
+
+ipc.on('list-languages', function(event) {
+    try {
+        const files = fs.readdirSync(`${__dirname}/i18n/`).filter(function(file) {
+            return file.endsWith('.json')
+        })
+        event.returnValue = files
+    } catch (e) {
+        console.log('Failed to list the files')
+        event.returnValue = {
+            error: 'Failed to list the files'
+        }
+    }
+})
+
+ipc.on('fetch-locale', function(event) {
+    try {
+        event.returnValue = getConfig('locale')
+    } catch (e) {
+        console.log('Failed to fetch locale')
+        returnValue = {
+            error: 'Failed to fetch locale'
+        }
+    }
+})
+
+ipc.on('relaunch', function(event, locale) {
+    try {
+        setConfig('locale', locale)
+        app.relaunch()
+        app.quit()
+        event.returnValue = null
+    } catch (e) {
+        console.log('Failed to relaunch')
+        event.returnValue = {
+            error: 'Failed to relaunch'
+        }
+    }
+})
+
+const getConfig = function(config) {
+    const configJSON = getConfigJSON()
+    return configJSON[config]
+}
+
+const setConfig = function(config, value) {
+    const configJSON = getConfigJSON()
+    configJSON[config] = value
+    setConfigJSON(configJSON)
+}
+
+const getConfigJSON = function() {
+    return JSON.parse(fs.readFileSync(`${__dirname}/config/config.json`, 'utf-8'))
+}
+
+const setConfigJSON = function(configJSON) {
+    fs.writeFileSync(`${__dirname}/config/config.json`, JSON.stringify(configJSON))
+}

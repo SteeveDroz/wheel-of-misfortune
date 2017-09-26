@@ -90,7 +90,7 @@ const selectChoice = function() {
             selected = part
         }
     })
-    openPopup('Selected', selected).catch(nothing).then(function() {
+    openPopup(i18n.__('Selected'), selected).catch(nothing).then(function() {
         if (selected !== undefined) {
             group.choices.forEach(function(choice) {
                 if (choice.name == selected) {

@@ -7,7 +7,7 @@ $(function() {
         if (group === undefined) {
             addGroupPopup()
         }
-    })
+    }).then(fetchLocale).then(translate).then(nothing)
     $('#mask').hide()
     $('#popup').hide()
 
@@ -64,16 +64,18 @@ $('#delete-group').click(function() {
 })
 
 const resetPopup = function() {
-    openPopup('Reset', 'Are you sure you want to reset?').then(reset).then(updateGroup).then(reloadGroup).then(drawGroup)
+    openPopup(i18n.__('Reset'), i18n.__('Are you sure you want to reset?')).then(reset).then(updateGroup).then(reloadGroup).then(drawGroup)
         .then(updateGroupDisplay).catch(nothing)
 }
 
 const addGroupPopup = function() {
-    openPopup('Add a group', '<input id="new-group-name" placeholder="Group name" size="50"><textarea id="new-group-choices" rows="20" placeholder="Choices, each on a new line"></textarea>').then(addGroup).catch(nothing)
+    openPopup(i18n.__('Add a group'), `<input id="new-group-name" placeholder="${i18n.__('Group name')}" size="50"><textarea id="new-group-choices" rows="20" placeholder="${i18n.__('Choices, each on a new line')}"></textarea>`).then(addGroup).catch(nothing)
 }
 
 const deleteGroupPopup = function() {
-    openPopup('Delete the group', 'Are you sure you want to delete the group "' + $('#groups').val() + '"?').then(function() {
+    openPopup(i18n.__('Delete the group'), i18n.__(`Are you sure you want to delete the group "{{groupName}}"?`, {
+        groupName: $('#groups').val()
+    })).then(function() {
         return deleteGroup($('#groups').val())
     }).catch(nothing).then(populateGroups).then(reloadGroup).then(drawGroup).catch(function() {
         group = undefined
@@ -84,5 +86,5 @@ const deleteGroupPopup = function() {
 }
 
 const about = function() {
-    openPopup('About', `<div style="margin-bottom:30px">The Wheel of Misfortune, v${require('../package.json').version}</div><div id="license" style="white-space: pre-wrap;width:75vw;"></div><script>$('#license').load('../LICENSE')</script>`).catch(nothing).then(nothing)
+    openPopup(i18n.__('About'), `<div style="margin-bottom:30px">The Wheel of Misfortune, v${require('../package.json').version}</div><div id="license" style="white-space: pre-wrap;width:75vw;"></div><script>$('#license').load('../LICENSE')</script>`).catch(nothing).then(nothing)
 }

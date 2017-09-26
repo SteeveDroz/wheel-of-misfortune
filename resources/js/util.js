@@ -145,4 +145,15 @@ const removeFileType = function(fileName) {
     return fileName.split('.').slice(0, -1).join('.')
 }
 
+const relaunch = function() {
+    return new Promise(function(resolve, reject) {
+        const response = ipc.sendSync('relaunch', i18n.getLocale())
+        if (response !== null && response.error !== undefined) {
+            reject()
+        } else {
+            resolve()
+        }
+    })
+}
+
 const nothing = function() {}
