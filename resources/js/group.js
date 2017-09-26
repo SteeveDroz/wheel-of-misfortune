@@ -51,7 +51,12 @@ const editGroup = function() {
     const data = $('#group-display table')
     const newGroup = {}
     const oldName = group.name
-    const newName = data.find('thead').find('td').eq(0).text().trim()
+
+    let newName = data.find('thead').find('td').eq(0).text().trim()
+    if (newName == '') {
+        newName = oldName
+    }
+
     $('#groups option').filter(function() {
         return $(this).val() == oldName
     }).remove()
@@ -59,7 +64,7 @@ const editGroup = function() {
 
     newGroup.choices = []
     data.find('tbody tr').each(function(id, line) {
-        const name = $(line).find('td').eq(0).text()
+        const name = $(line).find('td').eq(0).text().trim()
 
         const pointsFromField = Number($(line).find('td').eq(1).text())
         const points = isNaN(pointsFromField) ? 0 : pointsFromField
@@ -74,6 +79,10 @@ const editGroup = function() {
             })
         }
     })
+
+    if (newGroup.choices.length == 0) {
+        newGroup.choices = group.choices
+    }
 
     newGroup.last = group.last
 
