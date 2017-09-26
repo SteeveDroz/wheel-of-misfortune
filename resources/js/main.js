@@ -75,7 +75,34 @@ const resetPopup = function() {
 }
 
 const addGroupPopup = function() {
-    openPopup(i18n.__('Add a group'), `<input id="new-group-name" placeholder="${i18n.__('Group name')}" size="50"><textarea id="new-group-choices" rows="20" placeholder="${i18n.__('Choices, each on a new line')}"></textarea>`).then(addGroup).catch(nothing)
+    $('#ok').prop('disabled', true)
+    const enableOk = function() {
+        if ($('#new-group-name').val().trim() == '' || $('#new-group-choices').val().trim() == '') {
+            $('#ok').prop('disabled', true)
+        } else {
+            $('#ok').prop('disabled', false)
+        }
+    }
+
+    const groupForm = $('<div>', {
+        css: {
+            display: 'flex',
+            flexDirection: 'column'
+        }
+    })
+    groupForm.append($('<input>', {
+        id: 'new-group-name',
+        placeholder: i18n.__('Group name'),
+        size: 50,
+        keyup: enableOk
+    }))
+    groupForm.append($('<textarea>', {
+        id: 'new-group-choices',
+        rows: 20,
+        placeholder: i18n.__('Choices, each on a new line'),
+        keyup: enableOk
+    }))
+    openPopup(i18n.__('Add a group'), groupForm).then(addGroup).catch(nothing)
 }
 
 const deleteGroupPopup = function() {

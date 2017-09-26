@@ -64,6 +64,10 @@ button.danger {
     background: red;
 }
 
+button[disabled] {
+    background: gray;
+}
+
 #group-display table {
     text-align: center;
 }
