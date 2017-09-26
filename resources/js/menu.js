@@ -18,7 +18,9 @@ const template = [{
                 label: i18n.__('Run'),
                 accelerator: 'CmdOrCtrl+Enter',
                 click: function() {
-                    run().then(selectChoice)
+                    setMenu(true).then(run).then(selectChoice).then(function() {
+                        setMenu(false)
+                    })
                 }
             },
             {
@@ -70,5 +72,14 @@ const template = [{
     }
 ]
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+const setMenu = function(disableActions) {
+    return new Promise(function(resolve, reject) {
+        const editedTemplate = Object.values($.extend(true, {}, template))
+        if (disableActions) {
+            editedTemplate.splice(1, 1)
+        }
+        const menu = Menu.buildFromTemplate(editedTemplate)
+        Menu.setApplicationMenu(menu)
+        resolve()
+    })
+}

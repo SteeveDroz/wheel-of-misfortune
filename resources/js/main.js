@@ -2,6 +2,8 @@
 
 $(function() {
     fetchLocale().then(translate).then(function() {
+        setMenu(false)
+    }).then(function() {
         return new Promise(function(resolve, reject) {
             setTimeout(resolve, 1000)
         })
@@ -46,7 +48,9 @@ $('#twice-in-a-row').change(function() {
 })
 
 $('#run').click(function() {
-    run().then(selectChoice)
+    setMenu(true).then(run).then(selectChoice).then(function() {
+        setMenu(false)
+    })
 })
 
 $('#disabled').click(function() {
