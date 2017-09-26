@@ -1,26 +1,18 @@
 "use strict";
 
 const addGroup = function() {
-    let newName = $('#new-group-name').val()
+    let newName = $('#new-group-name').val().replace(/<script[^>]*>.*<\/script[^>]*>/, '').replace(/<script[^>]*>.*$/, '').trim()
     const newChoices = $('#new-group-choices')
         .val()
         .split(/[\r\n]+/)
         .map(function(element) {
-            return element.trim()
+            return element.replace(/<script[^>]*>.*<\/script[^>]*>/, '').replace(/<script[^>]*>.*$/, '').trim()
         })
         .filter(function(element) {
             return element
         })
 
-    if (!newName) {
-        console.log('Name required')
-        return
-    }
     newName = createGroupName(newName)
-    if (newChoices.length == 0) {
-        console.log('Non-empty lines required')
-        return
-    }
 
     const newGroup = {}
     newGroup.name = newName
