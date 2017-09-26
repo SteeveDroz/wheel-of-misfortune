@@ -4,6 +4,25 @@
 
 The Wheel of Misfortune allows you to randomly make a selection amongst a group of choices.
 
+## Table of contents
+
+1. [User manual](#user-manual)
+    1. [Add group](#add-group)
+    2. [Renaming](#renaming)
+    3. [Basic use](#basic-use)
+    4. [Disable choices](#disable-choices)
+    5. [Proportional](#proportional)
+    6. [Twice in a row](#twice-in-a-row)
+    7. [Reset](#reset)
+    8. [Delete](#delete)
+    9. [Switch groups](#switch-groups)
+    10. [Menu](#menu)
+2. [For translators](#for-translators)
+3. [For developers](#for-developers)
+    1. [Improving](#improving)
+    2. [Compiling](#compiling)
+4. [License](#license)
+
 ## User manual
 
 The general idea of this software is to run a wheel that will stop on a choice.
@@ -38,7 +57,7 @@ After creating a group, it is possible to modify it in the right part of the app
 
 ### Basic use
 
-Tu use the app, simply click on the "Run" button. The wheel will start turning and show the choice once it stopped.
+To use the app, simply click on the "Run" button. The wheel will start turning and show the choice once it stopped.
 
 ![The selected choice](doc/images/select-1.png)
 
